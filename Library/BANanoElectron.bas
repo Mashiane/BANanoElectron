@@ -10,6 +10,7 @@ Sub Class_Globals
 	Private mPacketName As String
 	Private mTitle As String
 	Private shl As Shell
+	Private BANano As BANano
 End Sub
 
 'Initializes the BANanoElectron
@@ -19,9 +20,65 @@ Public Sub Initialize(WorkingDir As String, AppName As String, PacketName As Str
 	mPacketName = PacketName
 	mTitle = Title
 End Sub
-'
-'Install Electron
-Public Sub Install As ResumableSub
+
+'Install App
+Public Sub AppInstall As ResumableSub
+	shl.Initialize("shl", "cmd", Array As String("/c", "npm", "install"))
+	shl.WorkingDirectory =  File.Combine(mWorkingDir, mAppName)
+	shl.Encoding = "ISO-8859-1"
+	Dim res As ShellSyncResult = shl.RunSynchronous(-1)
+	Log(res.StdOut)
+	LogError(res.StdErr)
+	Return (res.Success And res.ExitCode = 0)
+End Sub
+
+'start app
+Public Sub AppStart As ResumableSub
+	shl.Initialize("shl", "cmd", Array As String("/c", "npm", "start"))
+	shl.WorkingDirectory =  File.Combine(mWorkingDir, mAppName)
+	shl.Encoding = "ISO-8859-1"
+	Dim res As ShellSyncResult = shl.RunSynchronous(-1)
+	Log(res.StdOut)
+	LogError(res.StdErr)
+	Return (res.Success And res.ExitCode = 0)
+End Sub
+
+'build app
+Public Sub AppBuild As ResumableSub
+	shl.Initialize("shl", "cmd", Array As String("/c", "npm", "build"))
+	shl.WorkingDirectory =  File.Combine(mWorkingDir, mAppName)
+	shl.Encoding = "ISO-8859-1"
+	Dim res As ShellSyncResult = shl.RunSynchronous(-1)
+	Log(res.StdOut)
+	LogError(res.StdErr)
+	Return (res.Success And res.ExitCode = 0)
+End Sub
+
+'Add Dependency
+Public Sub InstallDependency(args As String) As ResumableSub
+	shl.Initialize("shl", "cmd", Array As String("/c", "npm", "install", args, "--save"))
+	shl.WorkingDirectory =  File.Combine(mWorkingDir, mAppName)
+	shl.Encoding = "ISO-8859-1"
+	Dim res As ShellSyncResult = shl.RunSynchronous(-1)
+	Log(res.StdOut)
+	LogError(res.StdErr)
+	Return (res.Success And res.ExitCode = 0)
+End Sub
+
+
+'Add Development Dependency
+Public Sub InstallDevDependency(args As String) As ResumableSub
+	shl.Initialize("shl", "cmd", Array As String("/c", "npm", "install", "--save-dev", args))
+	shl.WorkingDirectory =  File.Combine(mWorkingDir, mAppName)
+	shl.Encoding = "ISO-8859-1"
+	Dim res As ShellSyncResult = shl.RunSynchronous(-1)
+	Log(res.StdOut)
+	LogError(res.StdErr)
+	Return (res.Success And res.ExitCode = 0)
+End Sub
+
+'Add global electron
+Public Sub Install() As ResumableSub
 	shl.Initialize("shl", "cmd", Array As String("/c", "npm", "install", "-g", "electron"))
 	shl.WorkingDirectory =  File.Combine(mWorkingDir, mAppName)
 	shl.Encoding = "ISO-8859-1"
@@ -31,9 +88,22 @@ Public Sub Install As ResumableSub
 	Return (res.Success And res.ExitCode = 0)
 End Sub
 
-'uninstall Electron
-Public Sub UnInstall As ResumableSub
-	shl.Initialize("shl", "cmd", Array As String("/c", "npm", "uninstall", "-g", "electron"))
+
+'Add global package
+Public Sub InstallPackage(args As String) As ResumableSub
+	shl.Initialize("shl", "cmd", Array As String("/c", "npm", "install", "-g", args))
+	shl.WorkingDirectory =  File.Combine(mWorkingDir, mAppName)
+	shl.Encoding = "ISO-8859-1"
+	Dim res As ShellSyncResult = shl.RunSynchronous(-1)
+	Log(res.StdOut)
+	LogError(res.StdErr)
+	Return (res.Success And res.ExitCode = 0)
+End Sub
+
+
+'uninstall package
+Public Sub UnInstallPackage(args As String) As ResumableSub
+	shl.Initialize("shl", "cmd", Array As String("/c", "npm", "uninstall", "-g", args))
 	shl.WorkingDirectory =  File.Combine(mWorkingDir, mAppName)
 	shl.Encoding = "ISO-8859-1"
 	Dim res As ShellSyncResult = shl.RunSynchronous(-1)
@@ -80,8 +150,8 @@ Private Sub CopyFolder(Source As String, targetFolder As String)
 End Sub
 
 'run the application
-Public Sub Run() As ResumableSub
-	shl.Initialize("shl", "cmd", Array As String("/c", "electron", "."))
+Public Sub Run(args As String) As ResumableSub
+	shl.Initialize("shl", "cmd", Array As String("/c", args, "."))
 	shl.WorkingDirectory = File.Combine(mWorkingDir, mAppName)
 	shl.Encoding = "ISO-8859-1"
 	Dim res As ShellSyncResult = shl.RunSynchronous(-1)

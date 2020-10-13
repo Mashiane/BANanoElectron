@@ -4,6 +4,6 @@ ModuleBreakpoints0=
 ModuleBreakpoints1=
 ModuleClosedNodes0=
 ModuleClosedNodes1=
-NavigationStack=BANanoElectron,Class_Globals,8,0,Main,Process_Globals,12,0,BANanoElectron,shl_StdOut,40,0,BANanoElectron,Install,22,0,BANanoElectron,Initialize,16,0,BANanoElectron,UnInstall,33,0,BANanoElectron,EventName_StdErr,51,0,BANanoElectron,CopyFolder,75,0,BANanoElectron,Run,82,2,BANanoElectron,isInstalled,62,0
+NavigationStack=BANanoElectron,InstallDependency,50,0,BANanoElectron,AppStart,39,0,BANanoElectron,AppBuild,47,1,BANanoElectron,InstallPackage,74,0,BANanoElectron,Install,80,3,BANanoElectron,Run,154,0,BANanoElectron,InstallDevDependency,71,0,BANanoElectron,AppInstall,18,0,BANanoElectron,Class_Globals,5,0,Main,Process_Globals,11,0
 SelectedBuild=0
 VisibleModules=1

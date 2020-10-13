@@ -5,9 +5,10 @@ Library1=jcore
 Library2=jfx
 Library3=banano
 Library4=bananoelectron
+Module1=|relative|..\..\..\shared\BANanoShared
 NumberOfFiles=0
 NumberOfLibraries=4
-NumberOfModules=0
+NumberOfModules=1
 Version=8.5
 @EndOfDesignText@
 #Region Project Attributes 
@@ -22,13 +23,13 @@ Sub AppStart (Form1 As Form, Args() As String)
 	Dim AppName As String = "BanELDemo"
 	Dim AppTitle As String = "BanELDemo"
 	Dim ServerIP As String = "localhost"
-	Dim Version As String = "1.00"
+	Dim Version As String = "1.0.0"
 	Dim Port As String = "8080"
 	Dim Publish As String = "C:/laragon/www"
 	Dim WorkingFolder As String = $"${Publish}/${AppName}"$
 	
 	'initialize banano for first use
-	BANano.Initialize("BANano", AppName, Version)
+	BANano.Initialize("BANano", AppName, DateTime.now)
 	BANano.HTML_NAME = "index.html"
 	BANano.Header.Title = AppTitle
 	'BANano.Header.AddFavicon("favicon-16x16.png", "16x16")
@@ -64,7 +65,6 @@ Sub AppStart (Form1 As Form, Args() As String)
 const electron = require('electron');
 const app = electron.app;                                               
 const BrowserWindow = electron.BrowserWindow;
-
 let mainWindow = null;
 
 app.on('window-all-closed', () => {
@@ -80,14 +80,18 @@ app.on('ready', () => {
 	AppJs = AppJs.Replace("~","$")
 	File.WriteString(WorkingFolder, "app.js", AppJs)
 
-	Dim PackageJson As String = $"{
-	  "name": "${AppName}",
-	  "version": "${Version}",
-	  "description": "",
-	  "main": "app.js",
-	  "author": "BANanoNinja",
-	  "license": "MIT"
-	}"$
+Dim PackageJson As String = $"{
+"name": "${AppName}",
+"version": "${Version}",
+"productName": "${AppName}",
+"description": "${AppName}",
+"main": "app.js",
+"scripts": {
+"start": "electron app.js"
+},
+"author": "BANanoNinja",
+"license": "MIT"
+}"$
 
 	File.WriteString(WorkingFolder, "package.json", PackageJson)
 	
@@ -106,15 +110,74 @@ app.on('ready', () => {
 	Else
 		Log(">> Electron is installed!")
 	End If
-	Log(">> Attempting to run the application...")
-	Dim rs As ResumableSub = electron.Run
+		
+	'install electron-packager globally
+	'*** RUN ONCE
+'	Log(">> Attempting to install electron-packager globally...")
+'	Dim rs As ResumableSub = electron.InstallPackage("electron-packager")
+'	Wait For (rs) Complete(Result As Boolean)
+'	If Not(Result) Then
+'		Log(">> Could not install electron packager...")
+'		If Not(Result) Then ExitApplication
+'	Else
+'		Log(">> Electron packager installed...!")
+'	End If
+	
+	
+	'install package
+	Log(">> Attempting to install electron-packager for app...")
+	Dim rs As ResumableSub = electron.InstallDevDependency("electron-packager")
 	Wait For (rs) Complete(Result As Boolean)
 	If Not(Result) Then
-		Log(">> Could not run the Electron App...")
+		Log(">> Could not install electron packager locally...")
 		If Not(Result) Then ExitApplication
 	Else
-		Log(">> Electron App running, check the output!")
+		Log(">> Electron packager installed locally...!")
 	End If
+	'
+	Log(">> Attempting to install electron for app...")
+	Dim rs As ResumableSub = electron.InstallDevDependency("electron")
+	Wait For (rs) Complete(Result As Boolean)
+	If Not(Result) Then
+		Log(">> Could not install electron locally...")
+		If Not(Result) Then ExitApplication
+	Else
+		Log(">> Electron installed locally...!")
+	End If
+	'
+	Log(">> Attempting to package the app for distribution...")
+	Dim rs As ResumableSub = electron.Run("electron-packager --overwrite")
+	Wait For (rs) Complete(Result As Boolean)
+	If Not(Result) Then
+		Log(">> Could not package the app...")
+		If Not(Result) Then ExitApplication
+	Else
+		Log(">> App packaged successfully...!")
+	End If
+	
+	
+	Log(">> Attempting to install the application...")
+	Dim rs As ResumableSub = electron.AppInstall
+	Wait For (rs) Complete(Result As Boolean)
+	If Not(Result) Then
+		Log(">> Could not install the Electron App...")
+		If Not(Result) Then ExitApplication
+	Else
+		Log(">> Electron App installed, check the output!")
+	End If
+
+	Log(">> Attempting to start the application...")
+	Dim rs As ResumableSub = electron.AppStart
+	Wait For (rs) Complete(Result As Boolean)
+	If Not(Result) Then
+		Log(">> Could not start the Electron App...")
+		If Not(Result) Then ExitApplication
+	Else
+		Log(">> Electron App started, check the output!")
+	End If
+	
+	
+	
 	ExitApplication
 End Sub
 
@@ -141,16 +204,24 @@ End Sub
 #End If
 
 
-
 Sub BANano_Ready()
 	Dim body As BANanoElement = BANano.GetElement("#body")
 	Dim bs As Map = CreateMap()
 	bs.Put("background-image", "linear-gradient(45deg, #EAD790 0%, #EF8C53 100%)")
 	bs.Put("text-align", "center")
+	bs.Put("font-family", "'Roboto', sans-serif")
 	body.SetStyle(BANano.ToJson(bs))
 	'
-	Dim btn As BANanoElement = body.Append($"<button id="btnhello">Say Hello</button>"$).Get("#btnhello")
+	Dim h1 As BANanoElement = BANanoShared.CreateElement("body", "h1", "myh1")
+	h1.SetText("Hello BANanoElectron")
+	'
+	Dim p1 As BANanoElement = BANanoShared.CreateElement("body", "p", "p1")
+	p1.SetText("osenv home: ")
+	
+	Dim btn As BANanoElement = BANanoShared.CreateElement("body", "button", "btnhello") 
+	btn.SetText("Say Hello")
 	btn.On("click", Me, "sayhello")
+	
 	
 End Sub
 

@@ -3,9 +3,10 @@ Build1=Default,b4j.example
 Group=Default Group
 Library1=jcore
 Library2=jshell
+Library3=banano
 Module1=BANanoElectron
 NumberOfFiles=0
-NumberOfLibraries=2
+NumberOfLibraries=3
 NumberOfModules=1
 Version=8.5
 @EndOfDesignText@
@@ -15,7 +16,7 @@ Version=8.5
 	#MergeLibraries: True 
 	#LibraryName: BANanoElectron
 	#LibraryAuthor: Anele Mbanga (Mashy)
-	#LibraryVersion: 1.01
+	#LibraryVersion: 1.05
 #End Region
 
 Sub Process_Globals
