@@ -1,12 +1,14 @@
 ﻿AppType=JavaFX
 Build1=Default,b4j.example
+File1=Cloud.ico
+FileGroup1=Default Group
 Group=Default Group
 Library1=jcore
 Library2=jfx
 Library3=banano
 Library4=bananoelectron
 Module1=|relative|..\..\..\shared\BANanoShared
-NumberOfFiles=0
+NumberOfFiles=1
 NumberOfLibraries=4
 NumberOfModules=1
 Version=8.5
@@ -22,6 +24,7 @@ End Sub
 Sub AppStart (Form1 As Form, Args() As String)
 	Dim AppName As String = "BanELDemo"
 	Dim AppTitle As String = "BanELDemo"
+	Dim ProductName As String = "BANano Electron Demo"
 	Dim ServerIP As String = "localhost"
 	Dim Version As String = "1.0.0"
 	Dim Port As String = "8080"
@@ -83,11 +86,15 @@ app.on('ready', () => {
 Dim PackageJson As String = $"{
 "name": "${AppName}",
 "version": "${Version}",
-"productName": "${AppName}",
+"productName": "${ProductName}",
 "description": "${AppName}",
 "main": "app.js",
 "scripts": {
-"start": "electron app.js"
+"start": "electron app.js",
+"build": "npm run build-mac && npm run build-win && npm run build-linux",
+"build-mac": "electron-packager . --platform=darwin --out=build --icons=icons/Icon.icns --overwrite --asar", 
+"build-win": "electron-packager . --platform=win32 --out=build --icons=icons/Icon.ico --overwrite --asar", 
+"build-linux": "electron-packager . --platform=linux --out=build --icons=icons/Icon.png --overwrite --asar"
 },
 "author": "BANanoNinja",
 "license": "MIT"
@@ -97,7 +104,7 @@ Dim PackageJson As String = $"{
 	
 	'lets work with electron
 	Dim electron As BANanoElectron
-	electron.Initialize(Publish, AppName, "com.mashy.helloelectron", "BANano Electron")
+	electron.Initialize(Publish, AppName, "com.mashy.helloelectron", ProductName)
 	Log("=======================================")
 	Log(">> Checking if Electron is already installed...")
 	Dim rs As ResumableSub = electron.isInstalled
@@ -145,17 +152,6 @@ Dim PackageJson As String = $"{
 		Log(">> Electron installed locally...!")
 	End If
 	'
-	Log(">> Attempting to package the app for distribution...")
-	Dim rs As ResumableSub = electron.Run("electron-packager --overwrite")
-	Wait For (rs) Complete(Result As Boolean)
-	If Not(Result) Then
-		Log(">> Could not package the app...")
-		If Not(Result) Then ExitApplication
-	Else
-		Log(">> App packaged successfully...!")
-	End If
-	
-	
 	Log(">> Attempting to install the application...")
 	Dim rs As ResumableSub = electron.AppInstall
 	Wait For (rs) Complete(Result As Boolean)
@@ -165,7 +161,17 @@ Dim PackageJson As String = $"{
 	Else
 		Log(">> Electron App installed, check the output!")
 	End If
-
+	'
+	Log(">> Attempting to build the application...")
+	Dim rs As ResumableSub = electron.AppBuild
+	Wait For (rs) Complete(Result As Boolean)
+	If Not(Result) Then
+		Log(">> Could not build the Electron App...")
+		If Not(Result) Then ExitApplication
+	Else
+		Log(">> Electron App built...!")
+	End If
+	'
 	Log(">> Attempting to start the application...")
 	Dim rs As ResumableSub = electron.AppStart
 	Wait For (rs) Complete(Result As Boolean)

@@ -25,7 +25,7 @@ End Sub
 Public Sub AppInstall As ResumableSub
 	shl.Initialize("shl", "cmd", Array As String("/c", "npm", "install"))
 	shl.WorkingDirectory =  File.Combine(mWorkingDir, mAppName)
-	shl.Encoding = "ISO-8859-1"
+	shl.Encoding = "UTF-8"
 	Dim res As ShellSyncResult = shl.RunSynchronous(-1)
 	Log(res.StdOut)
 	LogError(res.StdErr)
@@ -34,9 +34,9 @@ End Sub
 
 'start app
 Public Sub AppStart As ResumableSub
-	shl.Initialize("shl", "cmd", Array As String("/c", "npm", "start"))
+	shl.Initialize("shl", "cmd", Array As String("/c", "npm", "run", "start"))
 	shl.WorkingDirectory =  File.Combine(mWorkingDir, mAppName)
-	shl.Encoding = "ISO-8859-1"
+	shl.Encoding = "UTF-8"
 	Dim res As ShellSyncResult = shl.RunSynchronous(-1)
 	Log(res.StdOut)
 	LogError(res.StdErr)
@@ -45,9 +45,9 @@ End Sub
 
 'build app
 Public Sub AppBuild As ResumableSub
-	shl.Initialize("shl", "cmd", Array As String("/c", "npm", "build"))
+	shl.Initialize("shl", "cmd", Array As String("/c", "npm", "run", "build"))
 	shl.WorkingDirectory =  File.Combine(mWorkingDir, mAppName)
-	shl.Encoding = "ISO-8859-1"
+	shl.Encoding = "UTF-8"
 	Dim res As ShellSyncResult = shl.RunSynchronous(-1)
 	Log(res.StdOut)
 	LogError(res.StdErr)
@@ -58,7 +58,7 @@ End Sub
 Public Sub InstallDependency(args As String) As ResumableSub
 	shl.Initialize("shl", "cmd", Array As String("/c", "npm", "install", args, "--save"))
 	shl.WorkingDirectory =  File.Combine(mWorkingDir, mAppName)
-	shl.Encoding = "ISO-8859-1"
+	shl.Encoding = "UTF-8"
 	Dim res As ShellSyncResult = shl.RunSynchronous(-1)
 	Log(res.StdOut)
 	LogError(res.StdErr)
@@ -70,7 +70,7 @@ End Sub
 Public Sub InstallDevDependency(args As String) As ResumableSub
 	shl.Initialize("shl", "cmd", Array As String("/c", "npm", "install", "--save-dev", args))
 	shl.WorkingDirectory =  File.Combine(mWorkingDir, mAppName)
-	shl.Encoding = "ISO-8859-1"
+	shl.Encoding = "UTF-8"
 	Dim res As ShellSyncResult = shl.RunSynchronous(-1)
 	Log(res.StdOut)
 	LogError(res.StdErr)
@@ -81,7 +81,7 @@ End Sub
 Public Sub Install() As ResumableSub
 	shl.Initialize("shl", "cmd", Array As String("/c", "npm", "install", "-g", "electron"))
 	shl.WorkingDirectory =  File.Combine(mWorkingDir, mAppName)
-	shl.Encoding = "ISO-8859-1"
+	shl.Encoding = "UTF-8"
 	Dim res As ShellSyncResult = shl.RunSynchronous(-1)
 	Log(res.StdOut)
 	LogError(res.StdErr)
@@ -93,7 +93,7 @@ End Sub
 Public Sub InstallPackage(args As String) As ResumableSub
 	shl.Initialize("shl", "cmd", Array As String("/c", "npm", "install", "-g", args))
 	shl.WorkingDirectory =  File.Combine(mWorkingDir, mAppName)
-	shl.Encoding = "ISO-8859-1"
+	shl.Encoding = "UTF-8"
 	Dim res As ShellSyncResult = shl.RunSynchronous(-1)
 	Log(res.StdOut)
 	LogError(res.StdErr)
@@ -105,7 +105,7 @@ End Sub
 Public Sub UnInstallPackage(args As String) As ResumableSub
 	shl.Initialize("shl", "cmd", Array As String("/c", "npm", "uninstall", "-g", args))
 	shl.WorkingDirectory =  File.Combine(mWorkingDir, mAppName)
-	shl.Encoding = "ISO-8859-1"
+	shl.Encoding = "UTF-8"
 	Dim res As ShellSyncResult = shl.RunSynchronous(-1)
 	Log(res.StdOut)
 	LogError(res.StdErr)
@@ -129,7 +129,7 @@ End Sub
 Public Sub isInstalled As ResumableSub
 	shl.Initialize("shl", "cmd", Array As String("/c", "electron", "--version"))
 	shl.WorkingDirectory =  File.Combine(mWorkingDir, mAppName)
-	shl.Encoding = "ISO-8859-1"
+	shl.Encoding = "UTF-8"
 	Dim res As ShellSyncResult = shl.RunSynchronous(-1)
 	Log(res.StdOut)
 	LogError(res.StdErr)
@@ -153,7 +153,7 @@ End Sub
 Public Sub Run(args As String) As ResumableSub
 	shl.Initialize("shl", "cmd", Array As String("/c", args, "."))
 	shl.WorkingDirectory = File.Combine(mWorkingDir, mAppName)
-	shl.Encoding = "ISO-8859-1"
+	shl.Encoding = "UTF-8"
 	Dim res As ShellSyncResult = shl.RunSynchronous(-1)
 	Log(res.StdOut)
 	LogError(res.StdErr)

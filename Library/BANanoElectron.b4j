@@ -16,7 +16,7 @@ Version=8.5
 	#MergeLibraries: True 
 	#LibraryName: BANanoElectron
 	#LibraryAuthor: Anele Mbanga (Mashy)
-	#LibraryVersion: 1.05
+	#LibraryVersion: 1.06
 #End Region
 
 Sub Process_Globals
