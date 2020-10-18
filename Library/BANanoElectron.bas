@@ -12,8 +12,8 @@ Sub Class_Globals
 	Private mTitle As String
 	Private shl As Shell
 	Private BANano As BANano
-	Public MainProcess As ELMain
-	Public RendererProcess As ELRenderer
+	Public MainProcess As ELProcess
+	Public RendererProcess As ELProcess
 	Public BrowserWindow As ELBrowserWindow
 	Private package As StringBuilder
 	Private scripts As StringBuilder
@@ -195,8 +195,8 @@ Sub Save
 	package.Append(CRLF)
 	File.WriteString(File.Combine(mWorkingDir,mAppName), "package.json", package.ToString)
 	'
-	MainProcess.Save
-	RendererProcess.save
+	MainProcess.Save("main.js")
+	RendererProcess.save("renderer.js")
 End Sub
 
 
