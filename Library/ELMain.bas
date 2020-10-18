@@ -31,6 +31,25 @@ Sub dimension(varname As String, source As String) As ELMain
 	Return Me
 End Sub
 
+'define constants
+Sub constant(varname As String, source As String) As ELMain
+	script($"const ${varname} = ${source}"$)
+	Return Me
+End Sub
+
+'set let
+Sub let(varname As String, source As String) As ELMain
+	script($"let ${varname} = ${source}"$)
+	Return Me
+End Sub
+
+'set assign
+Sub assign(varname As String, source As String) As ELMain
+	script($"${varname} = ${source}"$)
+	Return Me
+End Sub
+
+
 'add code
 Sub script(mcode As String) As ELMain
 	code.Append(mcode)

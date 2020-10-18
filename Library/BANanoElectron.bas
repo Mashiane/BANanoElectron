@@ -50,6 +50,28 @@ Public Sub Initialize(WorkingDir As String, AppName As String, PacketName As Str
 	RendererProcess.Initialize(mWorkingDir, mAppName)
 End Sub
 
+'new list
+Sub NewList As List
+	Dim nl As List
+	nl.Initialize 
+	Return nl
+End Sub
+
+'create a menu
+Sub CreateMenu(key As String, label As String) As ELMenu
+	Dim em As ELMenu
+	em.Initialize(key, label)
+	Return em
+End Sub
+
+'create a separator
+Sub CreateMenuSeparator() As ELMenu
+	Dim em As ELMenu
+	em.Initialize("", "")
+	em.Separator
+	Return em
+End Sub
+
 'convert list to json
 Sub List2Json(l As List) As String
 	Dim JSONGenerator As JSONGenerator

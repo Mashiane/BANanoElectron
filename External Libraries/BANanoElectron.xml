@@ -11,6 +11,115 @@
   <dependsOn>jserver</dependsOn>
   <dependsOn>servlet-api-3.1</dependsOn>
   <class>
+    <name>b4j.example.elmenu</name>
+    <shortname>ELMenu</shortname>
+    <method>
+      <name>IsInitialized</name>
+      <comment>Tests whether the object has been initialized.</comment>
+      <returntype>boolean</returntype>
+    </method>
+    <method>
+      <name DesignerName="AddItem">_additem</name>
+      <comment>add submenu
+</comment>
+      <returntype>b4j.example.elmenu</returntype>
+      <parameter>
+        <name>smenu</name>
+        <type>b4j.example.elmenu</type>
+      </parameter>
+    </method>
+    <method>
+      <name DesignerName="Class_Globals">_class_globals</name>
+      <returntype>String</returntype>
+    </method>
+    <method>
+      <name DesignerName="Initialize">_initialize</name>
+      <comment>Initializes the menu
+</comment>
+      <returntype>b4j.example.elmenu</returntype>
+      <parameter>
+        <name>ba</name>
+        <type>anywheresoftware.b4a.BA</type>
+      </parameter>
+      <parameter>
+        <name>key</name>
+        <type>String</type>
+      </parameter>
+      <parameter>
+        <name>label</name>
+        <type>String</type>
+      </parameter>
+    </method>
+    <method>
+      <name DesignerName="Separator">_separator</name>
+      <comment>make the menu a separator
+</comment>
+      <returntype>b4j.example.elmenu</returntype>
+    </method>
+    <method>
+      <name DesignerName="SetAccelerator">_setaccelerator</name>
+      <comment>set accelerator
+</comment>
+      <returntype>b4j.example.elmenu</returntype>
+      <parameter>
+        <name>saccelerator</name>
+        <type>String</type>
+      </parameter>
+    </method>
+    <method>
+      <name DesignerName="SetCheckBox">_setcheckbox</name>
+      <comment>set checkbox
+</comment>
+      <returntype>b4j.example.elmenu</returntype>
+    </method>
+    <method>
+      <name DesignerName="SetChecked">_setchecked</name>
+      <comment>set checked
+</comment>
+      <returntype>b4j.example.elmenu</returntype>
+      <parameter>
+        <name>bChecked</name>
+        <type>boolean</type>
+      </parameter>
+    </method>
+    <method>
+      <name DesignerName="SetClick">_setclick</name>
+      <comment>set click
+</comment>
+      <returntype>b4j.example.elmenu</returntype>
+      <parameter>
+        <name>sclick</name>
+        <type>String</type>
+      </parameter>
+    </method>
+    <method>
+      <name DesignerName="SetRadio">_setradio</name>
+      <comment>set radio
+</comment>
+      <returntype>b4j.example.elmenu</returntype>
+    </method>
+    <method>
+      <name DesignerName="SetRole">_setrole</name>
+      <comment>set role
+</comment>
+      <returntype>b4j.example.elmenu</returntype>
+      <parameter>
+        <name>srole</name>
+        <type>String</type>
+      </parameter>
+    </method>
+    <method>
+      <name DesignerName="ToJSON">_tojson</name>
+      <comment>tojson
+</comment>
+      <returntype>String</returntype>
+    </method>
+    <field>
+      <name DesignerName="menu">_menu</name>
+      <returntype>anywheresoftware.b4a.objects.collections.Map</returntype>
+    </field>
+  </class>
+  <class>
     <name>b4j.example.bananoelectron</name>
     <shortname>BANanoElectron</shortname>
     <method>
@@ -77,6 +186,26 @@
     <method>
       <name DesignerName="Class_Globals">_class_globals</name>
       <returntype>String</returntype>
+    </method>
+    <method>
+      <name DesignerName="CreateMenu">_createmenu</name>
+      <comment>create a menu
+</comment>
+      <returntype>b4j.example.elmenu</returntype>
+      <parameter>
+        <name>key</name>
+        <type>String</type>
+      </parameter>
+      <parameter>
+        <name>label</name>
+        <type>String</type>
+      </parameter>
+    </method>
+    <method>
+      <name DesignerName="CreateMenuSeparator">_createmenuseparator</name>
+      <comment>create a separator
+</comment>
+      <returntype>b4j.example.elmenu</returntype>
     </method>
     <method>
       <name DesignerName="Initialize">_initialize</name>
@@ -185,6 +314,12 @@
         <name>m</name>
         <type>anywheresoftware.b4a.objects.collections.Map</type>
       </parameter>
+    </method>
+    <method>
+      <name DesignerName="NewList">_newlist</name>
+      <comment>new list
+</comment>
+      <returntype>anywheresoftware.b4a.objects.collections.List</returntype>
     </method>
     <method>
       <name DesignerName="Run">_run</name>
@@ -334,6 +469,20 @@
       <returntype>boolean</returntype>
     </method>
     <method>
+      <name DesignerName="assign">_assign</name>
+      <comment>set assign
+</comment>
+      <returntype>b4j.example.elmain</returntype>
+      <parameter>
+        <name>varname</name>
+        <type>String</type>
+      </parameter>
+      <parameter>
+        <name>source</name>
+        <type>String</type>
+      </parameter>
+    </method>
+    <method>
       <name DesignerName="Class_Globals">_class_globals</name>
       <returntype>String</returntype>
     </method>
@@ -344,6 +493,20 @@
       <returntype>b4j.example.elmain</returntype>
       <parameter>
         <name>mcomment</name>
+        <type>String</type>
+      </parameter>
+    </method>
+    <method>
+      <name DesignerName="constant">_constant</name>
+      <comment>define constants
+</comment>
+      <returntype>b4j.example.elmain</returntype>
+      <parameter>
+        <name>varname</name>
+        <type>String</type>
+      </parameter>
+      <parameter>
+        <name>source</name>
         <type>String</type>
       </parameter>
     </method>
@@ -376,6 +539,20 @@
       </parameter>
       <parameter>
         <name>AppName</name>
+        <type>String</type>
+      </parameter>
+    </method>
+    <method>
+      <name DesignerName="let">_let</name>
+      <comment>set let
+</comment>
+      <returntype>b4j.example.elmain</returntype>
+      <parameter>
+        <name>varname</name>
+        <type>String</type>
+      </parameter>
+      <parameter>
+        <name>source</name>
         <type>String</type>
       </parameter>
     </method>
@@ -502,6 +679,6 @@
       <returntype>String</returntype>
     </method>
   </class>
-  <version>1.08</version>
+  <version>1.09</version>
   <author>Anele Mbanga (Mashy)</author>
 </root>
