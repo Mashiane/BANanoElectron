@@ -5,9 +5,12 @@ Library1=jcore
 Library2=jshell
 Library3=banano
 Module1=BANanoElectron
+Module2=ELBrowserWindow
+Module3=ELMain
+Module4=ELRenderer
 NumberOfFiles=0
 NumberOfLibraries=3
-NumberOfModules=1
+NumberOfModules=4
 Version=8.5
 @EndOfDesignText@
 'Non-UI application (console / server application)
@@ -16,7 +19,7 @@ Version=8.5
 	#MergeLibraries: True 
 	#LibraryName: BANanoElectron
 	#LibraryAuthor: Anele Mbanga (Mashy)
-	#LibraryVersion: 1.06
+	#LibraryVersion: 1.08
 #End Region
 
 Sub Process_Globals

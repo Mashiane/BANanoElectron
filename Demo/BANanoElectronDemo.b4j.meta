@@ -4,6 +4,6 @@ ModuleBreakpoints0=
 ModuleBreakpoints1=
 ModuleClosedNodes0=
 ModuleClosedNodes1=
-NavigationStack=BANanoShared,SetCoverImage,2440,0,BANanoShared,Process_Globals,20,0,BANanoShared,GetFileDetails,554,0,BANanoShared,GetSelectedFileObject,2487,0,BANanoShared,GetUploadFileName,2479,0,Main,sayhello,217,0,Main,BANano_Ready,206,6,Main,AppStart,141,6
+NavigationStack=Main,Process_Globals,7,0,Main,BANano_Ready,242,6,Main,sayhello,248,0,BANanoShared,AddCode,36,0,Main,AppStart,190,6
 SelectedBuild=0
 VisibleModules=

@@ -29,7 +29,6 @@ Sub AppStart (Form1 As Form, Args() As String)
 	Dim Version As String = "1.0.0"
 	Dim Port As String = "8080"
 	Dim Publish As String = "C:/laragon/www"
-	Dim WorkingFolder As String = $"${Publish}/${AppName}"$
 	
 	'initialize banano for first use
 	BANano.Initialize("BANano", AppName, DateTime.now)
@@ -64,47 +63,86 @@ Sub AppStart (Form1 As Form, Args() As String)
 	'Dim URL As String = File.GetUri(File.DirApp,"log.txt")
 	'fx.ShowExternalDocument(URL)
 	'
-	Dim AppJs As String = $"'use strict';
-const electron = require('electron');
-const app = electron.app;                                               
-const BrowserWindow = electron.BrowserWindow;
-let mainWindow = null;
-
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') app.quit();
-});
-
-app.on('ready', () => {
-  mainWindow = new BrowserWindow();
-  mainWindow.loadURL(`file://~{__dirname}/index.html`);
-  mainWindow.on('closed', () => { mainWindow = null; });
-});"$
-	'
-	AppJs = AppJs.Replace("~","$")
-	File.WriteString(WorkingFolder, "app.js", AppJs)
-
-Dim PackageJson As String = $"{
-"name": "${AppName}",
-"version": "${Version}",
-"productName": "${ProductName}",
-"description": "${AppName}",
-"main": "app.js",
-"scripts": {
-"start": "electron app.js",
-"build": "npm run build-mac && npm run build-win && npm run build-linux",
-"build-mac": "electron-packager . --platform=darwin --out=build --icons=icons/Icon.icns --overwrite --asar", 
-"build-win": "electron-packager . --platform=win32 --out=build --icons=icons/Icon.ico --overwrite --asar", 
-"build-linux": "electron-packager . --platform=linux --out=build --icons=icons/Icon.png --overwrite --asar"
-},
-"author": "BANanoNinja",
-"license": "MIT"
-}"$
-
-	File.WriteString(WorkingFolder, "package.json", PackageJson)
-	
 	'lets work with electron
 	Dim electron As BANanoElectron
 	electron.Initialize(Publish, AppName, "com.mashy.helloelectron", ProductName)
+	electron.version = Version
+	electron.description = "Beginning Electron with BANano"
+	electron.AddScript("start", "electron main.js")
+	electron.AddScript("build", "npm run build-mac && npm run build-win && npm run build-linux")
+	electron.AddScript("build-mac", "electron-packager . --platform=darwin --out=build --icons=icons/Icon.icns --overwrite --asar")
+	electron.AddScript("build-win", "electron-packager . --platform=win32 --out=build --icons=icons/Icon.ico --overwrite --asar")
+	electron.AddScript("build-linux", "electron-packager . --platform=linux --out=build --icons=icons/Icon.png --overwrite --asar")
+	electron.AddKeyword("Electron")
+	electron.AddKeyword("BANano")
+	electron.author = "Anele Mbanga (Mashy)"
+	electron.license = "MIT"
+	electron.Repository = "https://github.com/Mashiane/BANanoElectron"
+	'
+	'define the main process
+	Dim MP As ELMain = electron.MainProcess
+	MP.comment("get access to all Electron API")
+	MP.require("electron", "electron")
+	MP.comment("module to control the app life cycle")
+	MP.dimension("app", "electron.app")
+	MP.comment("module to create native browser window")
+	MP.dimension("BrowserWindow", "electron.BrowserWindow")
+	MP.require("path", "path")
+	MP.require("url", "url")
+	MP.newline
+	'
+	MP.comment("global reference to window")
+	MP.script("let mainWindow = null")
+	MP.newline
+	'
+	MP.script("function createWindow () {")
+	MP.comment("create the browser window")
+	MP.script("mainWindow = new BrowserWindow({width:800, height:600})")
+	MP.newline
+	MP.comment("load index.html to app")
+	MP.script("mainWindow.loadURL(url.format({")
+	MP.script("pathname: path.join(__dirname, 'index.html'),")
+	MP.script("protocol: 'file:',")
+	MP.script("slashes: true")
+	MP.script("}))")
+	MP.newline
+	'
+	MP.comment("open dev tools")
+	MP.script("mainWindow.webContents.openDevTools()")
+	MP.newline
+	'
+	MP.comment("Emitted when the window is closed.")
+	MP.script("mainWindow.on('closed', function () {")
+	MP.script("mainWindow = null")
+	MP.script("})")
+	MP.script("}")
+	MP.newline
+	'
+	MP.comment("Fired when electron is ready to create the window")
+	MP.script("app.on('ready', createWindow)")
+	MP.newline
+	'
+	MP.comment("Quit when all windows are closed.")
+	MP.script("app.on('window-all-closed', function () {")
+	MP.comment("On OS X it Is common for applications and their menu bar")
+	MP.comment("To stay active until the user quits explicitly with Cmd + Q")
+	MP.script("if (process.platform !== 'darwin') {")
+	MP.script("app.quit()")
+	MP.script("}")
+	MP.script("})")
+	MP.newline
+	'
+	MP.script("app.on('activate', function () {")
+	MP.comment("On OS X it's common to re-create a window in the app when the")
+	MP.comment("dock icon is clicked and there are no other windows open.")
+	MP.script("if (mainWindow === null) {")
+	MP.script("createWindow()")
+	MP.script("}")
+	MP.script("})")
+	
+	'
+	electron.Save
+	
 	Log("=======================================")
 	Log(">> Checking if Electron is already installed...")
 	Dim rs As ResumableSub = electron.isInstalled
@@ -118,19 +156,6 @@ Dim PackageJson As String = $"{
 		Log(">> Electron is installed!")
 	End If
 		
-	'install electron-packager globally
-	'*** RUN ONCE
-'	Log(">> Attempting to install electron-packager globally...")
-'	Dim rs As ResumableSub = electron.InstallPackage("electron-packager")
-'	Wait For (rs) Complete(Result As Boolean)
-'	If Not(Result) Then
-'		Log(">> Could not install electron packager...")
-'		If Not(Result) Then ExitApplication
-'	Else
-'		Log(">> Electron packager installed...!")
-'	End If
-	
-	
 	'install package
 	Log(">> Attempting to install electron-packager for app...")
 	Dim rs As ResumableSub = electron.InstallDevDependency("electron-packager")
@@ -218,17 +243,16 @@ Sub BANano_Ready()
 	bs.Put("font-family", "'Roboto', sans-serif")
 	body.SetStyle(BANano.ToJson(bs))
 	'
-	Dim h1 As BANanoElement = BANanoShared.CreateElement("body", "h1", "myh1")
+	Dim h1 As BANanoElement = BANanoShared.CreateElement("#body", "h1", "myh1")
 	h1.SetText("Hello BANanoElectron")
 	'
-	Dim p1 As BANanoElement = BANanoShared.CreateElement("body", "p", "p1")
-	p1.SetText("osenv home: ")
-	
-	Dim btn As BANanoElement = BANanoShared.CreateElement("body", "button", "btnhello") 
+	Dim btn As BANanoElement = BANanoShared.CreateElement("#body", "button", "btnhello") 
 	btn.SetText("Say Hello")
 	btn.On("click", Me, "sayhello")
 	
-	
+	'create a script
+	Dim script As BANanoElement = BANanoShared.CreateElement("html", "script", "s1")
+	script.SetText("require('./renderer.js')")
 End Sub
 
 Sub sayhello

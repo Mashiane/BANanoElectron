@@ -4,6 +4,7 @@ ModulesStructureVersion=1
 Type=Class
 Version=8.5
 @EndOfDesignText@
+#IgnoreWarnings:12
 Sub Class_Globals
 	Private mAppName As String
 	Private mWorkingDir As String
@@ -11,6 +12,15 @@ Sub Class_Globals
 	Private mTitle As String
 	Private shl As Shell
 	Private BANano As BANano
+	Public MainProcess As ELMain
+	Public RendererProcess As ELRenderer
+	Public BrowserWindow As ELBrowserWindow
+	Private package As StringBuilder
+	Private scripts As StringBuilder
+	Private keywords As StringBuilder
+	Private scriptsL As List
+	Private keywordsL As List
+	Private props As List
 End Sub
 
 'Initializes the BANanoElectron
@@ -19,7 +29,112 @@ Public Sub Initialize(WorkingDir As String, AppName As String, PacketName As Str
 	mAppName = AppName
 	mPacketName = PacketName
 	mTitle = Title
+	props.Initialize 
+	keywords.Initialize 
+	keywords.Append("[")
+	keywords.Append(CRLF)
+	keywordsL.Initialize 
+	scripts.initialize
+	scripts.Append("{")
+	scripts.Append(CRLF)
+	scriptsL.Initialize 
+	'build the package file
+	package.Initialize 
+	package.Append("{")
+	package.Append(CRLF)
+	AddProperty("name", AppName)
+	AddProperty("productName", Title)
+	AddProperty("main", "main.js")
+	'useful classes
+	MainProcess.Initialize(mWorkingDir, mAppName)
+	RendererProcess.Initialize(mWorkingDir, mAppName)
 End Sub
+
+'join list to mv string
+private Sub Join(delimiter As String, lst As List) As String
+	Dim i As Int
+	Dim sbx As StringBuilder
+	Dim fld As String
+	sbx.Initialize
+	fld = lst.Get(0)
+	sbx.Append(fld)
+	For i = 1 To lst.size - 1
+		Dim fld As String = lst.Get(i)
+		sbx.Append(delimiter).Append(fld)
+	Next
+	Return sbx.ToString
+End Sub
+
+'set version
+Sub setVersion(v As String)
+	AddProperty("version", v)
+End Sub
+
+'set description
+Sub setDescription(v As String)
+	AddProperty("description", v)
+End Sub
+
+'set repository
+Sub setRepository(v As String)
+	AddProperty("repository", v)
+End Sub
+
+'set author
+Sub setAuthor(v As String)
+	AddProperty("author", v)
+End Sub
+
+'set license
+Sub setLicense(v As String)
+	AddProperty("license", v)
+End Sub
+
+'add a script to the list
+Sub AddScript(propName As String, propValue As String)
+	Dim sprop As String = $""${propName}": "${propValue}""$
+	scriptsL.Add(sprop)
+End Sub
+
+'add property
+Sub AddProperty(propName As String, propValue As String)
+	Dim sprop As String = $""${propName}": "${propValue}""$
+	props.Add(sprop)
+End Sub
+
+'add keyword
+Sub AddKeyword(kw As String) As BANanoElectron
+	keywordsL.Add($""${kw}""$)
+	Return Me
+End Sub
+
+'save package
+Sub Save
+	'close the keywords
+	Dim v As String = Join("," & CRLF, keywordsL)
+	keywords.Append(v)
+	keywords.Append("]")
+	keywords.Append(CRLF)
+	v = Join("," & CRLF, props)
+	package.Append(v)
+	package.Append(",")
+	package.Append(CRLF)
+	'close the scripts
+	v = Join("," & CRLF, scriptsL)
+	scripts.Append(v)
+	scripts.Append("},")
+	scripts.Append(CRLF)
+	package.Append($""scripts":"$).Append(scripts.ToString)
+	package.Append($""keywords":"$).Append(keywords.ToString)
+	'close the package file
+	package.Append("}")
+	package.Append(CRLF)
+	File.WriteString(File.Combine(mWorkingDir,mAppName), "package.json", package.ToString)
+	'
+	MainProcess.Save
+	RendererProcess.save
+End Sub
+
 
 'Install App
 Public Sub AppInstall As ResumableSub
