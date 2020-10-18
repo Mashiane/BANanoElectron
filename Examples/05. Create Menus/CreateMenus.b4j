@@ -80,7 +80,7 @@ Sub AppStart (Form1 As Form, Args() As String)
 	electron.Repository = "https://github.com/Mashiane/BANanoElectron"
 	'
 	'define the main process
-	Dim MP As ELMain = electron.MainProcess
+	Dim MP As ELProcess = electron.MainProcess
 	MP.comment("get access to all Electron API")
 	MP.require("electron", "electron")
 	MP.comment("module to control the app life cycle")

@@ -4,6 +4,6 @@ ModuleBreakpoints0=
 ModuleBreakpoints1=
 ModuleClosedNodes0=
 ModuleClosedNodes1=
-NavigationStack=Main,Process_Globals,7,0,Main,BANano_Ready,242,6,Main,sayhello,248,0,BANanoShared,AddCode,36,0,Main,AppStart,190,6
+NavigationStack=Main,Process_Globals,7,0,Main,BANano_Ready,242,6,Main,sayhello,248,0,BANanoShared,AddCode,36,0,Main,AppStart,66,6
 SelectedBuild=0
 VisibleModules=
