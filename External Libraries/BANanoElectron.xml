@@ -1,0 +1,507 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <doclet-version-NOT-library-version>1.00</doclet-version-NOT-library-version>
+  <b4x_version>8.50</b4x_version>
+  <dependsOn>jcore</dependsOn>
+  <dependsOn>jshell</dependsOn>
+  <dependsOn>banano</dependsOn>
+  <dependsOn>json</dependsOn>
+  <dependsOn>byteconverter</dependsOn>
+  <dependsOn>jrandomaccessfile</dependsOn>
+  <dependsOn>jserver</dependsOn>
+  <dependsOn>servlet-api-3.1</dependsOn>
+  <class>
+    <name>b4j.example.bananoelectron</name>
+    <shortname>BANanoElectron</shortname>
+    <method>
+      <name>IsInitialized</name>
+      <comment>Tests whether the object has been initialized.</comment>
+      <returntype>boolean</returntype>
+    </method>
+    <method>
+      <name DesignerName="AddKeyword">_addkeyword</name>
+      <comment>add keyword
+</comment>
+      <returntype>b4j.example.bananoelectron</returntype>
+      <parameter>
+        <name>kw</name>
+        <type>String</type>
+      </parameter>
+    </method>
+    <method>
+      <name DesignerName="AddProperty">_addproperty</name>
+      <comment>add property
+</comment>
+      <returntype>String</returntype>
+      <parameter>
+        <name>propName</name>
+        <type>String</type>
+      </parameter>
+      <parameter>
+        <name>propValue</name>
+        <type>String</type>
+      </parameter>
+    </method>
+    <method>
+      <name DesignerName="AddScript">_addscript</name>
+      <comment>add a script to the list
+</comment>
+      <returntype>String</returntype>
+      <parameter>
+        <name>propName</name>
+        <type>String</type>
+      </parameter>
+      <parameter>
+        <name>propValue</name>
+        <type>String</type>
+      </parameter>
+    </method>
+    <method>
+      <name DesignerName="AppBuild">_appbuild</name>
+      <comment>build app
+</comment>
+      <returntype>anywheresoftware.b4a.keywords.Common.ResumableSubWrapper</returntype>
+    </method>
+    <method>
+      <name DesignerName="AppInstall">_appinstall</name>
+      <comment>Install App
+</comment>
+      <returntype>anywheresoftware.b4a.keywords.Common.ResumableSubWrapper</returntype>
+    </method>
+    <method>
+      <name DesignerName="AppStart">_appstart</name>
+      <comment>start app
+</comment>
+      <returntype>anywheresoftware.b4a.keywords.Common.ResumableSubWrapper</returntype>
+    </method>
+    <method>
+      <name DesignerName="Class_Globals">_class_globals</name>
+      <returntype>String</returntype>
+    </method>
+    <method>
+      <name DesignerName="Initialize">_initialize</name>
+      <comment>Initializes the BANanoElectron
+</comment>
+      <returntype>String</returntype>
+      <parameter>
+        <name>ba</name>
+        <type>anywheresoftware.b4a.BA</type>
+      </parameter>
+      <parameter>
+        <name>WorkingDir</name>
+        <type>String</type>
+      </parameter>
+      <parameter>
+        <name>AppName</name>
+        <type>String</type>
+      </parameter>
+      <parameter>
+        <name>PacketName</name>
+        <type>String</type>
+      </parameter>
+      <parameter>
+        <name>Title</name>
+        <type>String</type>
+      </parameter>
+    </method>
+    <method>
+      <name DesignerName="Install">_install</name>
+      <comment>Add global electron
+</comment>
+      <returntype>anywheresoftware.b4a.keywords.Common.ResumableSubWrapper</returntype>
+    </method>
+    <method>
+      <name DesignerName="InstallDependency">_installdependency</name>
+      <comment>Add Dependency
+</comment>
+      <returntype>anywheresoftware.b4a.keywords.Common.ResumableSubWrapper</returntype>
+      <parameter>
+        <name>args</name>
+        <type>String</type>
+      </parameter>
+    </method>
+    <method>
+      <name DesignerName="InstallDevDependency">_installdevdependency</name>
+      <comment>Add Development Dependency
+</comment>
+      <returntype>anywheresoftware.b4a.keywords.Common.ResumableSubWrapper</returntype>
+      <parameter>
+        <name>args</name>
+        <type>String</type>
+      </parameter>
+    </method>
+    <method>
+      <name DesignerName="InstallPackage">_installpackage</name>
+      <comment>Add global package
+</comment>
+      <returntype>anywheresoftware.b4a.keywords.Common.ResumableSubWrapper</returntype>
+      <parameter>
+        <name>args</name>
+        <type>String</type>
+      </parameter>
+    </method>
+    <method>
+      <name DesignerName="isInstalled">_isinstalled</name>
+      <comment>Check if Electron is installed or not
+</comment>
+      <returntype>anywheresoftware.b4a.keywords.Common.ResumableSubWrapper</returntype>
+    </method>
+    <method>
+      <name DesignerName="Json2List">_json2list</name>
+      <comment>convert json2list
+</comment>
+      <returntype>anywheresoftware.b4a.objects.collections.List</returntype>
+      <parameter>
+        <name>jsonTxt</name>
+        <type>String</type>
+      </parameter>
+    </method>
+    <method>
+      <name DesignerName="Json2Map">_json2map</name>
+      <comment>convert json string to map
+</comment>
+      <returntype>anywheresoftware.b4a.objects.collections.Map</returntype>
+      <parameter>
+        <name>jsonText</name>
+        <type>String</type>
+      </parameter>
+    </method>
+    <method>
+      <name DesignerName="List2Json">_list2json</name>
+      <comment>convert list to json
+</comment>
+      <returntype>String</returntype>
+      <parameter>
+        <name>l</name>
+        <type>anywheresoftware.b4a.objects.collections.List</type>
+      </parameter>
+    </method>
+    <method>
+      <name DesignerName="Map2Json">_map2json</name>
+      <comment>convert map to json
+</comment>
+      <returntype>String</returntype>
+      <parameter>
+        <name>m</name>
+        <type>anywheresoftware.b4a.objects.collections.Map</type>
+      </parameter>
+    </method>
+    <method>
+      <name DesignerName="Run">_run</name>
+      <comment>run the application
+</comment>
+      <returntype>anywheresoftware.b4a.keywords.Common.ResumableSubWrapper</returntype>
+      <parameter>
+        <name>args</name>
+        <type>String</type>
+      </parameter>
+    </method>
+    <method>
+      <name DesignerName="Save">_save</name>
+      <comment>save package
+</comment>
+      <returntype>String</returntype>
+    </method>
+    <method>
+      <name DesignerName="setAuthor" HideFromIDE="true">_setauthor</name>
+      <comment>set author
+</comment>
+      <returntype>String</returntype>
+      <parameter>
+        <name>v</name>
+        <type>String</type>
+      </parameter>
+    </method>
+    <method>
+      <name DesignerName="setDescription" HideFromIDE="true">_setdescription</name>
+      <comment>set description
+</comment>
+      <returntype>String</returntype>
+      <parameter>
+        <name>v</name>
+        <type>String</type>
+      </parameter>
+    </method>
+    <method>
+      <name DesignerName="setLicense" HideFromIDE="true">_setlicense</name>
+      <comment>set license
+</comment>
+      <returntype>String</returntype>
+      <parameter>
+        <name>v</name>
+        <type>String</type>
+      </parameter>
+    </method>
+    <method>
+      <name DesignerName="setRepository" HideFromIDE="true">_setrepository</name>
+      <comment>set repository
+</comment>
+      <returntype>String</returntype>
+      <parameter>
+        <name>v</name>
+        <type>String</type>
+      </parameter>
+    </method>
+    <method>
+      <name DesignerName="setVersion" HideFromIDE="true">_setversion</name>
+      <comment>set version
+</comment>
+      <returntype>String</returntype>
+      <parameter>
+        <name>v</name>
+        <type>String</type>
+      </parameter>
+    </method>
+    <method>
+      <name DesignerName="UnInstallPackage">_uninstallpackage</name>
+      <comment>uninstall package
+</comment>
+      <returntype>anywheresoftware.b4a.keywords.Common.ResumableSubWrapper</returntype>
+      <parameter>
+        <name>args</name>
+        <type>String</type>
+      </parameter>
+    </method>
+    <property>
+      <name DesignerName="Author">_author</name>
+      <comment>set author
+</comment>
+      <returntype>void</returntype>
+      <parameter>
+        <name>Value</name>
+        <type>String</type>
+      </parameter>
+    </property>
+    <property>
+      <name DesignerName="Description">_description</name>
+      <comment>set description
+</comment>
+      <returntype>void</returntype>
+      <parameter>
+        <name>Value</name>
+        <type>String</type>
+      </parameter>
+    </property>
+    <property>
+      <name DesignerName="License">_license</name>
+      <comment>set license
+</comment>
+      <returntype>void</returntype>
+      <parameter>
+        <name>Value</name>
+        <type>String</type>
+      </parameter>
+    </property>
+    <property>
+      <name DesignerName="Repository">_repository</name>
+      <comment>set repository
+</comment>
+      <returntype>void</returntype>
+      <parameter>
+        <name>Value</name>
+        <type>String</type>
+      </parameter>
+    </property>
+    <property>
+      <name DesignerName="Version">_version</name>
+      <comment>set version
+</comment>
+      <returntype>void</returntype>
+      <parameter>
+        <name>Value</name>
+        <type>String</type>
+      </parameter>
+    </property>
+    <field>
+      <name DesignerName="MainProcess">_mainprocess</name>
+      <returntype>b4j.example.elmain</returntype>
+    </field>
+    <field>
+      <name DesignerName="RendererProcess">_rendererprocess</name>
+      <returntype>b4j.example.elrenderer</returntype>
+    </field>
+    <field>
+      <name DesignerName="BrowserWindow">_browserwindow</name>
+      <returntype>b4j.example.elbrowserwindow</returntype>
+    </field>
+  </class>
+  <class>
+    <name>b4j.example.elmain</name>
+    <shortname>ELMain</shortname>
+    <method>
+      <name>IsInitialized</name>
+      <comment>Tests whether the object has been initialized.</comment>
+      <returntype>boolean</returntype>
+    </method>
+    <method>
+      <name DesignerName="Class_Globals">_class_globals</name>
+      <returntype>String</returntype>
+    </method>
+    <method>
+      <name DesignerName="comment">_comment</name>
+      <comment>add comment
+</comment>
+      <returntype>b4j.example.elmain</returntype>
+      <parameter>
+        <name>mcomment</name>
+        <type>String</type>
+      </parameter>
+    </method>
+    <method>
+      <name DesignerName="dimension">_dimension</name>
+      <comment>define constants
+</comment>
+      <returntype>b4j.example.elmain</returntype>
+      <parameter>
+        <name>varname</name>
+        <type>String</type>
+      </parameter>
+      <parameter>
+        <name>source</name>
+        <type>String</type>
+      </parameter>
+    </method>
+    <method>
+      <name DesignerName="Initialize">_initialize</name>
+      <comment>Initializes the object. You can add parameters to this method if needed.
+</comment>
+      <returntype>b4j.example.elmain</returntype>
+      <parameter>
+        <name>ba</name>
+        <type>anywheresoftware.b4a.BA</type>
+      </parameter>
+      <parameter>
+        <name>WorkingDir</name>
+        <type>String</type>
+      </parameter>
+      <parameter>
+        <name>AppName</name>
+        <type>String</type>
+      </parameter>
+    </method>
+    <method>
+      <name DesignerName="newline">_newline</name>
+      <comment>add new line
+</comment>
+      <returntype>b4j.example.elmain</returntype>
+    </method>
+    <method>
+      <name DesignerName="require">_require</name>
+      <comment>require
+</comment>
+      <returntype>b4j.example.elmain</returntype>
+      <parameter>
+        <name>varName</name>
+        <type>String</type>
+      </parameter>
+      <parameter>
+        <name>module</name>
+        <type>String</type>
+      </parameter>
+    </method>
+    <method>
+      <name DesignerName="Save">_save</name>
+      <comment>save to main
+</comment>
+      <returntype>String</returntype>
+    </method>
+    <method>
+      <name DesignerName="script">_script</name>
+      <comment>add code
+</comment>
+      <returntype>b4j.example.elmain</returntype>
+      <parameter>
+        <name>mcode</name>
+        <type>String</type>
+      </parameter>
+    </method>
+  </class>
+  <class>
+    <name>b4j.example.elbrowserwindow</name>
+    <shortname>ELBrowserWindow</shortname>
+    <method>
+      <name>IsInitialized</name>
+      <comment>Tests whether the object has been initialized.</comment>
+      <returntype>boolean</returntype>
+    </method>
+    <method>
+      <name DesignerName="Class_Globals">_class_globals</name>
+      <returntype>String</returntype>
+    </method>
+    <method>
+      <name DesignerName="Initialize">_initialize</name>
+      <comment>Initializes the object. You can add parameters to this method if needed.
+</comment>
+      <returntype>String</returntype>
+      <parameter>
+        <name>ba</name>
+        <type>anywheresoftware.b4a.BA</type>
+      </parameter>
+    </method>
+  </class>
+  <class>
+    <name>b4j.example.elrenderer</name>
+    <shortname>ELRenderer</shortname>
+    <method>
+      <name>IsInitialized</name>
+      <comment>Tests whether the object has been initialized.</comment>
+      <returntype>boolean</returntype>
+    </method>
+    <method>
+      <name DesignerName="AddCode">_addcode</name>
+      <comment>add code
+</comment>
+      <returntype>b4j.example.elrenderer</returntype>
+      <parameter>
+        <name>mcode</name>
+        <type>String</type>
+      </parameter>
+    </method>
+    <method>
+      <name DesignerName="AddComment">_addcomment</name>
+      <comment>add comment
+</comment>
+      <returntype>b4j.example.elrenderer</returntype>
+      <parameter>
+        <name>mcomment</name>
+        <type>String</type>
+      </parameter>
+    </method>
+    <method>
+      <name DesignerName="AddNewline">_addnewline</name>
+      <comment>add new line
+</comment>
+      <returntype>b4j.example.elrenderer</returntype>
+    </method>
+    <method>
+      <name DesignerName="Class_Globals">_class_globals</name>
+      <returntype>String</returntype>
+    </method>
+    <method>
+      <name DesignerName="Initialize">_initialize</name>
+      <comment>Initializes the object. You can add parameters to this method if needed.
+</comment>
+      <returntype>b4j.example.elrenderer</returntype>
+      <parameter>
+        <name>ba</name>
+        <type>anywheresoftware.b4a.BA</type>
+      </parameter>
+      <parameter>
+        <name>WorkingDir</name>
+        <type>String</type>
+      </parameter>
+      <parameter>
+        <name>AppName</name>
+        <type>String</type>
+      </parameter>
+    </method>
+    <method>
+      <name DesignerName="Save">_save</name>
+      <comment>save to renderer
+</comment>
+      <returntype>String</returntype>
+    </method>
+  </class>
+  <version>1.08</version>
+  <author>Anele Mbanga (Mashy)</author>
+</root>

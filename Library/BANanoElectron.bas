@@ -50,6 +50,48 @@ Public Sub Initialize(WorkingDir As String, AppName As String, PacketName As Str
 	RendererProcess.Initialize(mWorkingDir, mAppName)
 End Sub
 
+'convert list to json
+Sub List2Json(l As List) As String
+	Dim JSONGenerator As JSONGenerator
+	JSONGenerator.Initialize2(l)
+	Return JSONGenerator.ToString
+End Sub
+
+'convert map to json
+Sub Map2Json(m As Map) As String
+	Dim JSONGenerator As JSONGenerator
+	JSONGenerator.Initialize(m)
+	Return JSONGenerator.ToString
+End Sub
+
+'convert json string to map
+Sub Json2Map(jsonText As String) As Map
+	Dim Map1 As Map
+	Map1.Initialize
+	Try
+		Dim json As JSONParser
+		json.Initialize(jsonText)
+		Map1 = json.NextObject
+		Return Map1
+	Catch
+		Return Map1
+	End Try
+End Sub
+
+'convert json2list
+Sub Json2List(jsonTxt As String) As List
+	Dim root As List
+	root.Initialize
+	Try
+		Dim parser As JSONParser
+		parser.Initialize(jsonTxt)
+		root = parser.NextArray
+		Return root
+	Catch
+		Return root
+	End Try
+End Sub
+
 'join list to mv string
 private Sub Join(delimiter As String, lst As List) As String
 	Dim i As Int

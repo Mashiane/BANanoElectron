@@ -1,0 +1,246 @@
+﻿AppType=JavaFX
+Build1=Default,b4j.example
+File1=Cloud.ico
+FileGroup1=Default Group
+Group=Default Group
+Library1=jcore
+Library2=jfx
+Library3=banano
+Library4=bananoelectron
+Library5=json
+Module1=|relative|..\..\..\shared\BANanoShared
+NumberOfFiles=1
+NumberOfLibraries=5
+NumberOfModules=1
+Version=8.5
+@EndOfDesignText@
+#Region Project Attributes 
+	
+#End Region
+
+Sub Process_Globals
+	Public BANano As BANano 'ignore
+End Sub
+
+Sub AppStart (Form1 As Form, Args() As String)
+	Dim AppName As String = "BrowserWindow"
+	Dim AppTitle As String = "BANanoElectron - Browser Window"
+	Dim ServerIP As String = "localhost"
+	Dim Version As String = "1.0.0"
+	Dim Port As String = "8080"
+	Dim Publish As String = "C:/laragon/www"
+	
+	'initialize banano for first use
+	BANano.Initialize("BANano", AppName, DateTime.now)
+	BANano.HTML_NAME = "index.html"
+	BANano.Header.Title = AppTitle
+	'BANano.Header.AddFavicon("favicon-16x16.png", "16x16")
+	'BANano.Header.AddAppleTouchIcon("apple-touch-icon.png", "180x180")
+	'BANano.Header.AddMSTileIcon("mstile-150x150.png", "144x144")
+	'BANano.Header.SetMaskIcon("safari-pinned-tab.svg")
+	'BANano.Header.AddManifestIcon("android-chrome-192x192.png", "192x192")
+	'BANano.Header.AddManifestIcon("android-chrome-512x512.png", "512x512")
+	BANano.TranspilerOptions.UseServiceWorker = False
+	BANano.TranspilerOptions.MergeAllCSSFiles = False
+	BANano.TranspilerOptions.MergeAllJavascriptFiles = False
+	BANano.TranspilerOptions.MinifyOnline = False
+	BANano.TranspilerOptions.IgnoreB4JLibrary("bananoelectron")
+	BANano.TranspilerOptions.IgnoreB4JLibrary("json")
+	#if release
+	BANano.TranspilerOptions.EnableLiveCodeSwapping = False
+	#end if
+	'BANano.TranspilerOptions.RedirectOutput(File.DirApp, "log.txt")
+		
+	BANano.Header.AddCSSFile("https://fonts.googleapis.com/css?family=Roboto:300")
+	
+	'set php settings
+	BANano.PHP_NAME = $"${AppName}.php"$
+	BANano.PHPHost = $"http://${ServerIP}:${Port}/${AppName}/"$
+	BANano.PHPAddHeader("Access-Control-Allow-Origin: *")
+	BANano.Build(Publish)
+	
+	'Dim fx As JFX
+	'Dim URL As String = File.GetUri(File.DirApp,"log.txt")
+	'fx.ShowExternalDocument(URL)
+	'
+	'lets work with electron
+	Dim electron As BANanoElectron
+	electron.Initialize(Publish, AppName, "com.mashy.helloelectron", AppTitle)
+	electron.version = Version
+	electron.description = "Beginning Electron with BANano - Book Demo"
+	electron.AddScript("start", "electron main.js")
+	electron.AddScript("build", "npm run build-mac && npm run build-win && npm run build-linux")
+	electron.AddScript("build-mac", "electron-packager . --platform=darwin --out=build --icons=icons/Icon.icns --overwrite --asar")
+	electron.AddScript("build-win", "electron-packager . --platform=win32 --out=build --icons=icons/Icon.ico --overwrite --asar")
+	electron.AddScript("build-linux", "electron-packager . --platform=linux --out=build --icons=icons/Icon.png --overwrite --asar")
+	electron.AddKeyword("Electron")
+	electron.AddKeyword("BANano")
+	electron.author = "Anele Mbanga (Mashy)"
+	electron.license = "MIT"
+	electron.Repository = "https://github.com/Mashiane/BANanoElectron"
+	'
+	'define the main process
+	Dim MP As ELMain = electron.MainProcess
+	MP.comment("get access to all Electron API")
+	MP.require("electron", "electron")
+	MP.comment("module to control the app life cycle")
+	MP.dimension("app", "electron.app")
+	MP.comment("module to create native browser window")
+	MP.dimension("BrowserWindow", "electron.BrowserWindow")
+	MP.require("path", "path")
+	MP.require("url", "url")
+	MP.newline
+	'
+	MP.comment("global reference to window")
+	MP.script("let mainWindow = null")
+	MP.newline
+	'
+	MP.script("function createWindow () {")
+	MP.comment("create the browser window")
+	'
+	'set window options
+	'https://www.electronjs.org/docs/api/browser-window#class-browserwindow
+	Dim wo As Map = CreateMap()
+	wo.Put("width", 800)
+	wo.Put("height", 600)
+	wo.Put("show", False)
+	'wo.Put("backgroundColor", "#FFF")
+	wo.Put("resizable", True)
+	wo.Put("movable", True)
+	wo.Put("alwaysOnTop", False)
+	wo.Put("frame", False)
+	'wo.Put("titleBarStyle", "hidden")
+	wo.Put("transparent", True)
+	Dim woJSON As String = electron.Map2Json(wo)
+	MP.script($"mainWindow = new BrowserWindow(${woJSON})"$)
+	MP.newline
+	MP.comment("load index.html to app")
+	MP.script("mainWindow.loadURL(url.format({")
+	MP.script("pathname: path.join(__dirname, 'index.html'),")
+	MP.script("protocol: 'file:',")
+	MP.script("slashes: true")
+	MP.script("}))")
+	MP.newline
+	'
+	MP.comment("open dev tools")
+	MP.script("mainWindow.webContents.openDevTools()")
+	MP.newline
+	'
+	MP.comment("Wait for 'ready-to-show' to display our window")
+	MP.script("mainWindow.once('ready-to-show', function () {")
+	MP.script("mainWindow.show()")
+	MP.script("})")
+	MP.newline
+	'
+	MP.comment("Emitted when the window is closed.")
+	MP.script("mainWindow.on('closed', function () {")
+	MP.script("mainWindow = null")
+	MP.script("})")
+	MP.script("}")
+	MP.newline
+	'
+	MP.comment("Fired when electron is ready to create the window")
+	MP.script("app.on('ready', createWindow)")
+	MP.newline
+	'
+	MP.comment("Quit when all windows are closed.")
+	MP.script("app.on('window-all-closed', function () {")
+	MP.comment("On OS X it Is common for applications and their menu bar")
+	MP.comment("To stay active until the user quits explicitly with Cmd + Q")
+	MP.script("if (process.platform !== 'darwin') {")
+	MP.script("app.quit()")
+	MP.script("}")
+	MP.script("})")
+	MP.newline
+	'
+	MP.script("app.on('activate', function () {")
+	MP.comment("On OS X it's common to re-create a window in the app when the")
+	MP.comment("dock icon is clicked and there are no other windows open.")
+	MP.script("if (mainWindow === null) {")
+	MP.script("createWindow()")
+	MP.script("}")
+	MP.script("})")
+	
+	'create package, create main
+	electron.Save
+	
+	Log("=======================================")
+	Log(">> Checking if Electron is already installed...")
+	Dim rs As ResumableSub = electron.isInstalled
+	Wait For (rs) Complete(Result As Boolean)
+	If Not(Result) Then
+		Log(">> Electron is not yet installed. Installing...")
+		Dim rs As ResumableSub = electron.Install
+		Wait For (rs) Complete(Result As Boolean)
+		If Not(Result) Then ExitApplication
+	Else
+		Log(">> Electron is installed!")
+	End If
+		
+'	'install package
+'	Log(">> Attempting to install electron-packager for app...")
+'	Dim rs As ResumableSub = electron.InstallDevDependency("electron-packager")
+'	Wait For (rs) Complete(Result As Boolean)
+'	If Not(Result) Then
+'		Log(">> Could not install electron packager locally...")
+'		If Not(Result) Then ExitApplication
+'	Else
+'		Log(">> Electron packager installed locally...!")
+'	End If
+'	'
+'	Log(">> Attempting to install electron for app...")
+'	Dim rs As ResumableSub = electron.InstallDevDependency("electron")
+'	Wait For (rs) Complete(Result As Boolean)
+'	If Not(Result) Then
+'		Log(">> Could not install electron locally...")
+'		If Not(Result) Then ExitApplication
+'	Else
+'		Log(">> Electron installed locally...!")
+'	End If
+	'
+'	Log(">> Attempting to install the application...")
+'	Dim rs As ResumableSub = electron.AppInstall
+'	Wait For (rs) Complete(Result As Boolean)
+'	If Not(Result) Then
+'		Log(">> Could not install the Electron App...")
+'		If Not(Result) Then ExitApplication
+'	Else
+'		Log(">> Electron App installed, check the output!")
+'	End If
+	'
+'	Log(">> Attempting to build the application...")
+'	Dim rs As ResumableSub = electron.AppBuild
+'	Wait For (rs) Complete(Result As Boolean)
+'	If Not(Result) Then
+'		Log(">> Could not build the Electron App...")
+'		If Not(Result) Then ExitApplication
+'	Else
+'		Log(">> Electron App built...!")
+'	End If
+	'
+	Log(">> Attempting to start the application...")
+	Dim rs As ResumableSub = electron.AppStart
+	Wait For (rs) Complete(Result As Boolean)
+	If Not(Result) Then
+		Log(">> Could not start the Electron App...")
+		If Not(Result) Then ExitApplication
+	Else
+		Log(">> Electron App started, check the output!")
+	End If
+	
+	
+	
+	ExitApplication
+End Sub
+
+Sub BANano_Ready()
+	Dim body As BANanoElement = BANano.GetElement("#body")
+	body.SetStyle(BANano.ToJson(CreateMap("-webkit-app-region": "drag", "border": "1px solid red")))
+	
+	Dim h1 As BANanoElement = BANanoShared.CreateElement("#body", "h1", "myh1")
+	h1.SetText("Hello BANanoElectron - BrowserWindow")
+	
+	'create a script
+	Dim script As BANanoElement = BANanoShared.CreateElement("html", "script", "s1")
+	script.SetText("require('./renderer.js')")
+End Sub

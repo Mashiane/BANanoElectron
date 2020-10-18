@@ -4,12 +4,13 @@ Group=Default Group
 Library1=jcore
 Library2=jshell
 Library3=banano
+Library4=json
 Module1=BANanoElectron
 Module2=ELBrowserWindow
 Module3=ELMain
 Module4=ELRenderer
 NumberOfFiles=0
-NumberOfLibraries=3
+NumberOfLibraries=4
 NumberOfModules=4
 Version=8.5
 @EndOfDesignText@
