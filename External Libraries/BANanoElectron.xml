@@ -11,6 +11,666 @@
   <dependsOn>jserver</dependsOn>
   <dependsOn>servlet-api-3.1</dependsOn>
   <class>
+    <name>b4j.example.elelement</name>
+    <shortname>ELElement</shortname>
+    <event>Click (e As BANanoEvent)</event>
+    <event>DblClick (e As BANanoEvent)</event>
+    <event>MouseMove (e As BANanoEvent)</event>
+    <event>KeyUp (e As BANanoEvent)</event>
+    <event>KeyPress (e As BANanoEvent)</event>
+    <designerProperty>Key: TagName, DisplayName: TagName, FieldType: String, DefaultValue: div, Description: tag of the element</designerProperty>
+    <designerProperty>Key: Text, DisplayName: Text, FieldType: String, DefaultValue: , Description: Text on the element</designerProperty>
+    <designerProperty>Key: Classes, DisplayName: Classes, FieldType: String, DefaultValue: , Description: Classes added to the HTML tag.</designerProperty>
+    <designerProperty>Key: Style, DisplayName: Style, FieldType: String, DefaultValue: , Description: Styles added to the HTML tag. Must be a json String.</designerProperty>
+    <designerProperty>Key: Attributes, DisplayName: Attributes, FieldType: String, DefaultValue: , Description: Attributes added to the HTML tag. Must be a json String.</designerProperty>
+    <designerProperty>Key: LoremIpsum, DisplayName: LoremIpsum, FieldType: Boolean, DefaultValue: False, Description: Lorem ipsum.</designerProperty>
+    <designerProperty>Key: Margin, DisplayName: Margin, FieldType: String, DefaultValue:  , Description:</designerProperty>
+    <designerProperty>Key: MarginBottom, DisplayName: MarginBottom, FieldType: String, DefaultValue:  , Description:</designerProperty>
+    <designerProperty>Key: MarginLeft, DisplayName: MarginLeft, FieldType: String, DefaultValue:  , Description:</designerProperty>
+    <designerProperty>Key: MarginRight, DisplayName: MarginRight, FieldType: String, DefaultValue:  , Description:</designerProperty>
+    <designerProperty>Key: MarginTop, DisplayName: MarginTop, FieldType: String, DefaultValue:  , Description:</designerProperty>
+    <designerProperty>Key: Padding, DisplayName: Padding, FieldType: String, DefaultValue:  , Description:</designerProperty>
+    <designerProperty>Key: PaddingBottom, DisplayName: PaddingBottom, FieldType: String, DefaultValue:  , Description:</designerProperty>
+    <designerProperty>Key: PaddingLeft, DisplayName: PaddingLeft, FieldType: String, DefaultValue:  , Description:</designerProperty>
+    <designerProperty>Key: PaddingRight, DisplayName: PaddingRight, FieldType: String, DefaultValue:  , Description:</designerProperty>
+    <designerProperty>Key: PaddingTop, DisplayName: PaddingTop, FieldType: String, DefaultValue:  , Description:</designerProperty>
+    <method>
+      <name>IsInitialized</name>
+      <comment>Tests whether the object has been initialized.</comment>
+      <returntype>boolean</returntype>
+    </method>
+    <method>
+      <name DesignerName="AddBR">_addbr</name>
+      <comment>add a break
+</comment>
+      <returntype>String</returntype>
+    </method>
+    <method>
+      <name DesignerName="addChild">_addchild</name>
+      <comment>add a child component
+</comment>
+      <returntype>String</returntype>
+      <parameter>
+        <name>child</name>
+        <type>String</type>
+      </parameter>
+    </method>
+    <method>
+      <name DesignerName="addClass">_addclass</name>
+      <comment>add a class
+</comment>
+      <returntype>String</returntype>
+      <parameter>
+        <name>varClass</name>
+        <type>String</type>
+      </parameter>
+    </method>
+    <method>
+      <name DesignerName="addClasses">_addclasses</name>
+      <returntype>String</returntype>
+      <parameter>
+        <name>listOfClasses</name>
+        <type>anywheresoftware.b4a.objects.collections.List</type>
+      </parameter>
+    </method>
+    <method>
+      <name DesignerName="addClassOnCondition">_addclassoncondition</name>
+      <comment>add a class on condition
+</comment>
+      <returntype>String</returntype>
+      <parameter>
+        <name>varClass</name>
+        <type>String</type>
+      </parameter>
+      <parameter>
+        <name>varCondition</name>
+        <type>boolean</type>
+      </parameter>
+      <parameter>
+        <name>varShouldBe</name>
+        <type>boolean</type>
+      </parameter>
+    </method>
+    <method>
+      <name DesignerName="AddElement">_addelement</name>
+      <comment>add an element to the text
+</comment>
+      <returntype>String</returntype>
+      <parameter>
+        <name>elID</name>
+        <type>String</type>
+      </parameter>
+      <parameter>
+        <name>tag</name>
+        <type>String</type>
+      </parameter>
+      <parameter>
+        <name>props</name>
+        <type>anywheresoftware.b4a.objects.collections.Map</type>
+      </parameter>
+      <parameter>
+        <name>styleProps</name>
+        <type>anywheresoftware.b4a.objects.collections.Map</type>
+      </parameter>
+      <parameter>
+        <name>classNames</name>
+        <type>anywheresoftware.b4a.objects.collections.List</type>
+      </parameter>
+      <parameter>
+        <name>loose</name>
+        <type>anywheresoftware.b4a.objects.collections.List</type>
+      </parameter>
+      <parameter>
+        <name>Text</name>
+        <type>String</type>
+      </parameter>
+    </method>
+    <method>
+      <name DesignerName="AddHR">_addhr</name>
+      <comment>add a horizontal rule
+</comment>
+      <returntype>String</returntype>
+    </method>
+    <method>
+      <name DesignerName="addStyle">_addstyle</name>
+      <comment>add a style
+</comment>
+      <returntype>String</returntype>
+      <parameter>
+        <name>varProp</name>
+        <type>String</type>
+      </parameter>
+      <parameter>
+        <name>varStyle</name>
+        <type>String</type>
+      </parameter>
+    </method>
+    <method>
+      <name DesignerName="AddToParent">_addtoparent</name>
+      <comment>add the element to the parent
+</comment>
+      <returntype>String</returntype>
+      <parameter>
+        <name>targetID</name>
+        <type>String</type>
+      </parameter>
+    </method>
+    <method>
+      <name DesignerName="BuildAttributes">_buildattributes</name>
+      <returntype>String</returntype>
+      <parameter>
+        <name>properties</name>
+        <type>anywheresoftware.b4a.objects.collections.Map</type>
+      </parameter>
+    </method>
+    <method>
+      <name DesignerName="BuildStyle">_buildstyle</name>
+      <comment>build the styles
+</comment>
+      <returntype>String</returntype>
+      <parameter>
+        <name>styles</name>
+        <type>anywheresoftware.b4a.objects.collections.Map</type>
+      </parameter>
+    </method>
+    <method>
+      <name DesignerName="Class_Globals">_class_globals</name>
+      <returntype>String</returntype>
+    </method>
+    <method>
+      <name DesignerName="CStr">_cstr</name>
+      <comment>convert object to string
+</comment>
+      <returntype>String</returntype>
+      <parameter>
+        <name>o</name>
+        <type>Object</type>
+      </parameter>
+    </method>
+    <method>
+      <name DesignerName="DesignerCreateView">_designercreateview</name>
+      <comment>Create view in the designer
+</comment>
+      <returntype>String</returntype>
+      <parameter>
+        <name>Target</name>
+        <type>com.ab.banano.BANanoElement</type>
+      </parameter>
+      <parameter>
+        <name>Props</name>
+        <type>anywheresoftware.b4a.objects.collections.Map</type>
+      </parameter>
+    </method>
+    <method>
+      <name DesignerName="getAttributes" HideFromIDE="true">_getattributes</name>
+      <comment>returns the attributes
+</comment>
+      <returntype>String</returntype>
+    </method>
+    <method>
+      <name DesignerName="getClasses" HideFromIDE="true">_getclasses</name>
+      <comment>returns the class names
+</comment>
+      <returntype>String</returntype>
+    </method>
+    <method>
+      <name DesignerName="getElement" HideFromIDE="true">_getelement</name>
+      <comment>returns the BANanoElement
+</comment>
+      <returntype>com.ab.banano.BANanoElement</returntype>
+    </method>
+    <method>
+      <name DesignerName="getID" HideFromIDE="true">_getid</name>
+      <comment>returns the tag id
+</comment>
+      <returntype>String</returntype>
+    </method>
+    <method>
+      <name DesignerName="getMargin" HideFromIDE="true">_getmargin</name>
+      <returntype>String</returntype>
+    </method>
+    <method>
+      <name DesignerName="getMarginBottom" HideFromIDE="true">_getmarginbottom</name>
+      <returntype>String</returntype>
+    </method>
+    <method>
+      <name DesignerName="getMarginLeft" HideFromIDE="true">_getmarginleft</name>
+      <returntype>String</returntype>
+    </method>
+    <method>
+      <name DesignerName="getMarginRight" HideFromIDE="true">_getmarginright</name>
+      <returntype>String</returntype>
+    </method>
+    <method>
+      <name DesignerName="getMarginTop" HideFromIDE="true">_getmargintop</name>
+      <returntype>String</returntype>
+    </method>
+    <method>
+      <name DesignerName="getPadding" HideFromIDE="true">_getpadding</name>
+      <returntype>String</returntype>
+    </method>
+    <method>
+      <name DesignerName="getPaddingBottom" HideFromIDE="true">_getpaddingbottom</name>
+      <returntype>String</returntype>
+    </method>
+    <method>
+      <name DesignerName="getPaddingLeft" HideFromIDE="true">_getpaddingleft</name>
+      <returntype>String</returntype>
+    </method>
+    <method>
+      <name DesignerName="getPaddingRight" HideFromIDE="true">_getpaddingright</name>
+      <returntype>String</returntype>
+    </method>
+    <method>
+      <name DesignerName="getPaddingTop" HideFromIDE="true">_getpaddingtop</name>
+      <returntype>String</returntype>
+    </method>
+    <method>
+      <name DesignerName="getStyle" HideFromIDE="true">_getstyle</name>
+      <comment>returns the style as JSON
+</comment>
+      <returntype>String</returntype>
+    </method>
+    <method>
+      <name DesignerName="getTagName" HideFromIDE="true">_gettagname</name>
+      <returntype>String</returntype>
+    </method>
+    <method>
+      <name DesignerName="getText" HideFromIDE="true">_gettext</name>
+      <comment>returns the caption
+</comment>
+      <returntype>String</returntype>
+    </method>
+    <method>
+      <name DesignerName="Initialize">_initialize</name>
+      <comment>initialize the custom view
+</comment>
+      <returntype>String</returntype>
+      <parameter>
+        <name>ba</name>
+        <type>anywheresoftware.b4a.BA</type>
+      </parameter>
+      <parameter>
+        <name>CallBack</name>
+        <type>Object</type>
+      </parameter>
+      <parameter>
+        <name>Name</name>
+        <type>String</type>
+      </parameter>
+      <parameter>
+        <name>EventName</name>
+        <type>String</type>
+      </parameter>
+    </method>
+    <method>
+      <name DesignerName="Join">_join</name>
+      <comment>join list to mv string
+</comment>
+      <returntype>String</returntype>
+      <parameter>
+        <name>delimiter</name>
+        <type>String</type>
+      </parameter>
+      <parameter>
+        <name>lst</name>
+        <type>anywheresoftware.b4a.objects.collections.List</type>
+      </parameter>
+    </method>
+    <method>
+      <name DesignerName="JoinMapKeys">_joinmapkeys</name>
+      <returntype>String</returntype>
+      <parameter>
+        <name>m</name>
+        <type>anywheresoftware.b4a.objects.collections.Map</type>
+      </parameter>
+      <parameter>
+        <name>delim</name>
+        <type>String</type>
+      </parameter>
+    </method>
+    <method>
+      <name DesignerName="LoremIpsum">_loremipsum</name>
+      <comment>return sentences of lorem ipsum
+</comment>
+      <returntype>String</returntype>
+      <parameter>
+        <name>count</name>
+        <type>int</type>
+      </parameter>
+    </method>
+    <method>
+      <name DesignerName="MvField">_mvfield</name>
+      <comment>mvfield sub
+</comment>
+      <returntype>String</returntype>
+      <parameter>
+        <name>sValue</name>
+        <type>String</type>
+      </parameter>
+      <parameter>
+        <name>iPosition</name>
+        <type>int</type>
+      </parameter>
+      <parameter>
+        <name>Delimiter</name>
+        <type>String</type>
+      </parameter>
+    </method>
+    <method>
+      <name DesignerName="Remove">_remove</name>
+      <comment>remove the component
+</comment>
+      <returntype>String</returntype>
+    </method>
+    <method>
+      <name DesignerName="setAttributes" HideFromIDE="true">_setattributes</name>
+      <comment>sets the attributes
+</comment>
+      <returntype>String</returntype>
+      <parameter>
+        <name>varAttributes</name>
+        <type>String</type>
+      </parameter>
+    </method>
+    <method>
+      <name DesignerName="setMargin" HideFromIDE="true">_setmargin</name>
+      <returntype>String</returntype>
+      <parameter>
+        <name>varMargin</name>
+        <type>String</type>
+      </parameter>
+    </method>
+    <method>
+      <name DesignerName="setMarginBottom" HideFromIDE="true">_setmarginbottom</name>
+      <returntype>String</returntype>
+      <parameter>
+        <name>varMarginBottom</name>
+        <type>String</type>
+      </parameter>
+    </method>
+    <method>
+      <name DesignerName="setMarginLeft" HideFromIDE="true">_setmarginleft</name>
+      <returntype>String</returntype>
+      <parameter>
+        <name>varMarginLeft</name>
+        <type>String</type>
+      </parameter>
+    </method>
+    <method>
+      <name DesignerName="setMarginRight" HideFromIDE="true">_setmarginright</name>
+      <returntype>String</returntype>
+      <parameter>
+        <name>varMarginRight</name>
+        <type>String</type>
+      </parameter>
+    </method>
+    <method>
+      <name DesignerName="setMarginTop" HideFromIDE="true">_setmargintop</name>
+      <returntype>String</returntype>
+      <parameter>
+        <name>varMarginTop</name>
+        <type>String</type>
+      </parameter>
+    </method>
+    <method>
+      <name DesignerName="setPadding" HideFromIDE="true">_setpadding</name>
+      <returntype>String</returntype>
+      <parameter>
+        <name>varPadding</name>
+        <type>String</type>
+      </parameter>
+    </method>
+    <method>
+      <name DesignerName="setPaddingBottom" HideFromIDE="true">_setpaddingbottom</name>
+      <returntype>String</returntype>
+      <parameter>
+        <name>varPaddingBottom</name>
+        <type>String</type>
+      </parameter>
+    </method>
+    <method>
+      <name DesignerName="setPaddingLeft" HideFromIDE="true">_setpaddingleft</name>
+      <returntype>String</returntype>
+      <parameter>
+        <name>varPaddingLeft</name>
+        <type>String</type>
+      </parameter>
+    </method>
+    <method>
+      <name DesignerName="setPaddingRight" HideFromIDE="true">_setpaddingright</name>
+      <returntype>String</returntype>
+      <parameter>
+        <name>varPaddingRight</name>
+        <type>String</type>
+      </parameter>
+    </method>
+    <method>
+      <name DesignerName="setPaddingTop" HideFromIDE="true">_setpaddingtop</name>
+      <returntype>String</returntype>
+      <parameter>
+        <name>varPaddingTop</name>
+        <type>String</type>
+      </parameter>
+    </method>
+    <method>
+      <name DesignerName="setStyle" HideFromIDE="true">_setstyle</name>
+      <comment>set the style use a valid JSON string with {}
+</comment>
+      <returntype>String</returntype>
+      <parameter>
+        <name>varStyle</name>
+        <type>String</type>
+      </parameter>
+    </method>
+    <method>
+      <name DesignerName="setStyles" HideFromIDE="true">_setstyles</name>
+      <comment>sets the styles from the designer
+</comment>
+      <returntype>String</returntype>
+      <parameter>
+        <name>varStyles</name>
+        <type>String</type>
+      </parameter>
+    </method>
+    <method>
+      <name DesignerName="setTagName" HideFromIDE="true">_settagname</name>
+      <returntype>String</returntype>
+      <parameter>
+        <name>varTagName</name>
+        <type>String</type>
+      </parameter>
+    </method>
+    <method>
+      <name DesignerName="setText" HideFromIDE="true">_settext</name>
+      <comment>sets the text
+</comment>
+      <returntype>String</returntype>
+      <parameter>
+        <name>varCaption</name>
+        <type>String</type>
+      </parameter>
+    </method>
+    <method>
+      <name DesignerName="StrParse">_strparse</name>
+      <returntype>anywheresoftware.b4a.objects.collections.List</returntype>
+      <parameter>
+        <name>delim</name>
+        <type>String</type>
+      </parameter>
+      <parameter>
+        <name>inputString</name>
+        <type>String</type>
+      </parameter>
+    </method>
+    <method>
+      <name DesignerName="ToString">_tostring</name>
+      <comment>return the generated html
+</comment>
+      <returntype>String</returntype>
+    </method>
+    <method>
+      <name DesignerName="Trigger">_trigger</name>
+      <comment>trigger an event
+</comment>
+      <returntype>String</returntype>
+      <parameter>
+        <name>event</name>
+        <type>String</type>
+      </parameter>
+      <parameter>
+        <name>params</name>
+        <type>String[]</type>
+      </parameter>
+    </method>
+    <property>
+      <name DesignerName="Attributes">_attributes</name>
+      <comment>returns the attributes
+</comment>
+      <returntype>String</returntype>
+      <parameter>
+        <name>Value</name>
+        <type>String</type>
+      </parameter>
+    </property>
+    <property>
+      <name DesignerName="Classes">_classes</name>
+      <comment>returns the class names
+</comment>
+      <returntype>String</returntype>
+    </property>
+    <property>
+      <name DesignerName="Element">_element</name>
+      <comment>returns the BANanoElement
+</comment>
+      <returntype>com.ab.banano.BANanoElement</returntype>
+    </property>
+    <property>
+      <name DesignerName="ID">_id</name>
+      <comment>returns the tag id
+</comment>
+      <returntype>String</returntype>
+    </property>
+    <property>
+      <name DesignerName="Margin">_margin</name>
+      <returntype>String</returntype>
+      <parameter>
+        <name>Value</name>
+        <type>String</type>
+      </parameter>
+    </property>
+    <property>
+      <name DesignerName="MarginBottom">_marginbottom</name>
+      <returntype>String</returntype>
+      <parameter>
+        <name>Value</name>
+        <type>String</type>
+      </parameter>
+    </property>
+    <property>
+      <name DesignerName="MarginLeft">_marginleft</name>
+      <returntype>String</returntype>
+      <parameter>
+        <name>Value</name>
+        <type>String</type>
+      </parameter>
+    </property>
+    <property>
+      <name DesignerName="MarginRight">_marginright</name>
+      <returntype>String</returntype>
+      <parameter>
+        <name>Value</name>
+        <type>String</type>
+      </parameter>
+    </property>
+    <property>
+      <name DesignerName="MarginTop">_margintop</name>
+      <returntype>String</returntype>
+      <parameter>
+        <name>Value</name>
+        <type>String</type>
+      </parameter>
+    </property>
+    <property>
+      <name DesignerName="Padding">_padding</name>
+      <returntype>String</returntype>
+      <parameter>
+        <name>Value</name>
+        <type>String</type>
+      </parameter>
+    </property>
+    <property>
+      <name DesignerName="PaddingBottom">_paddingbottom</name>
+      <returntype>String</returntype>
+      <parameter>
+        <name>Value</name>
+        <type>String</type>
+      </parameter>
+    </property>
+    <property>
+      <name DesignerName="PaddingLeft">_paddingleft</name>
+      <returntype>String</returntype>
+      <parameter>
+        <name>Value</name>
+        <type>String</type>
+      </parameter>
+    </property>
+    <property>
+      <name DesignerName="PaddingRight">_paddingright</name>
+      <returntype>String</returntype>
+      <parameter>
+        <name>Value</name>
+        <type>String</type>
+      </parameter>
+    </property>
+    <property>
+      <name DesignerName="PaddingTop">_paddingtop</name>
+      <returntype>String</returntype>
+      <parameter>
+        <name>Value</name>
+        <type>String</type>
+      </parameter>
+    </property>
+    <property>
+      <name DesignerName="Style">_style</name>
+      <comment>returns the style as JSON
+</comment>
+      <returntype>String</returntype>
+      <parameter>
+        <name>Value</name>
+        <type>String</type>
+      </parameter>
+    </property>
+    <property>
+      <name DesignerName="TagName">_tagname</name>
+      <returntype>String</returntype>
+      <parameter>
+        <name>Value</name>
+        <type>String</type>
+      </parameter>
+    </property>
+    <property>
+      <name DesignerName="Text">_text</name>
+      <comment>returns the caption
+</comment>
+      <returntype>String</returntype>
+      <parameter>
+        <name>Value</name>
+        <type>String</type>
+      </parameter>
+    </property>
+    <property>
+      <name DesignerName="Styles">_styles</name>
+      <comment>sets the styles from the designer
+</comment>
+      <returntype>void</returntype>
+      <parameter>
+        <name>Value</name>
+        <type>String</type>
+      </parameter>
+    </property>
+  </class>
+  <class>
     <name>b4j.example.bananoelectron</name>
     <shortname>BANanoElectron</shortname>
     <method>
@@ -59,6 +719,24 @@
     <method>
       <name DesignerName="AppBuild">_appbuild</name>
       <comment>build app
+</comment>
+      <returntype>anywheresoftware.b4a.keywords.Common.ResumableSubWrapper</returntype>
+    </method>
+    <method>
+      <name DesignerName="AppBuildLinux">_appbuildlinux</name>
+      <comment>build linux app
+</comment>
+      <returntype>anywheresoftware.b4a.keywords.Common.ResumableSubWrapper</returntype>
+    </method>
+    <method>
+      <name DesignerName="AppBuildMac">_appbuildmac</name>
+      <comment>build win app
+</comment>
+      <returntype>anywheresoftware.b4a.keywords.Common.ResumableSubWrapper</returntype>
+    </method>
+    <method>
+      <name DesignerName="AppBuildWin">_appbuildwin</name>
+      <comment>build mac app
 </comment>
       <returntype>anywheresoftware.b4a.keywords.Common.ResumableSubWrapper</returntype>
     </method>
@@ -384,11 +1062,41 @@
     </method>
     <method>
       <name DesignerName="AddItem">_additem</name>
-      <comment>add submenu
+      <comment>add submenu item
 </comment>
       <returntype>b4j.example.elmenu</returntype>
       <parameter>
         <name>smenu</name>
+        <type>b4j.example.elmenu</type>
+      </parameter>
+    </method>
+    <method>
+      <name DesignerName="AddMenu">_addmenu</name>
+      <comment>add a menu
+</comment>
+      <returntype>b4j.example.elmenu</returntype>
+      <parameter>
+        <name>item</name>
+        <type>b4j.example.elmenu</type>
+      </parameter>
+    </method>
+    <method>
+      <name DesignerName="AddSubMenu">_addsubmenu</name>
+      <comment>add submenu item
+</comment>
+      <returntype>b4j.example.elmenu</returntype>
+      <parameter>
+        <name>smenu</name>
+        <type>b4j.example.elmenu</type>
+      </parameter>
+    </method>
+    <method>
+      <name DesignerName="AddToParent">_addtoparent</name>
+      <comment>addtiparent
+</comment>
+      <returntype>String</returntype>
+      <parameter>
+        <name>parent</name>
         <type>b4j.example.elmenu</type>
       </parameter>
     </method>
@@ -412,6 +1120,16 @@
       <parameter>
         <name>label</name>
         <type>String</type>
+      </parameter>
+    </method>
+    <method>
+      <name DesignerName="Pop">_pop</name>
+      <comment>pop
+</comment>
+      <returntype>String</returntype>
+      <parameter>
+        <name>parent</name>
+        <type>b4j.example.elmenu</type>
       </parameter>
     </method>
     <method>
@@ -478,6 +1196,12 @@
 </comment>
       <returntype>String</returntype>
     </method>
+    <method>
+      <name DesignerName="ToTemplate">_totemplate</name>
+      <comment>convert to template
+</comment>
+      <returntype>String</returntype>
+    </method>
     <field>
       <name DesignerName="menu">_menu</name>
       <returntype>anywheresoftware.b4a.objects.collections.Map</returntype>
@@ -490,6 +1214,60 @@
       <name>IsInitialized</name>
       <comment>Tests whether the object has been initialized.</comment>
       <returntype>boolean</returntype>
+    </method>
+    <method>
+      <name DesignerName="addEventListener">_addeventlistener</name>
+      <comment>add event listener
+</comment>
+      <returntype>b4j.example.elprocess</returntype>
+      <parameter>
+        <name>objName</name>
+        <type>String</type>
+      </parameter>
+      <parameter>
+        <name>eventName</name>
+        <type>String</type>
+      </parameter>
+    </method>
+    <method>
+      <name DesignerName="appOnActivate">_apponactivate</name>
+      <comment>app on activate
+</comment>
+      <returntype>b4j.example.elprocess</returntype>
+      <parameter>
+        <name>appName</name>
+        <type>String</type>
+      </parameter>
+    </method>
+    <method>
+      <name DesignerName="appOnReady">_apponready</name>
+      <comment>app onReady
+</comment>
+      <returntype>b4j.example.elprocess</returntype>
+      <parameter>
+        <name>appName</name>
+        <type>String</type>
+      </parameter>
+    </method>
+    <method>
+      <name DesignerName="appOnWindowAllClosed">_apponwindowallclosed</name>
+      <comment>app on windows all closes
+</comment>
+      <returntype>b4j.example.elprocess</returntype>
+      <parameter>
+        <name>appName</name>
+        <type>String</type>
+      </parameter>
+    </method>
+    <method>
+      <name DesignerName="appQuit">_appquit</name>
+      <comment>app quit
+</comment>
+      <returntype>b4j.example.elprocess</returntype>
+      <parameter>
+        <name>appName</name>
+        <type>String</type>
+      </parameter>
     </method>
     <method>
       <name DesignerName="assign">_assign</name>
@@ -508,6 +1286,12 @@
     <method>
       <name DesignerName="Class_Globals">_class_globals</name>
       <returntype>String</returntype>
+    </method>
+    <method>
+      <name DesignerName="CloseFunction">_closefunction</name>
+      <comment>end function with }
+</comment>
+      <returntype>b4j.example.elprocess</returntype>
     </method>
     <method>
       <name DesignerName="comment">_comment</name>
@@ -548,6 +1332,48 @@
       </parameter>
     </method>
     <method>
+      <name DesignerName="Done">_done</name>
+      <comment>end function with })
+</comment>
+      <returntype>b4j.example.elprocess</returntype>
+    </method>
+    <method>
+      <name DesignerName="EndIf">_endif</name>
+      <comment>EndIf
+</comment>
+      <returntype>b4j.example.elprocess</returntype>
+    </method>
+    <method>
+      <name DesignerName="getElementById">_getelementbyid</name>
+      <comment>get element by id
+</comment>
+      <returntype>b4j.example.elprocess</returntype>
+      <parameter>
+        <name>varName</name>
+        <type>String</type>
+      </parameter>
+      <parameter>
+        <name>elID</name>
+        <type>String</type>
+      </parameter>
+    </method>
+    <method>
+      <name DesignerName="IfIsNull">_ifisnull</name>
+      <comment>if IsNull
+</comment>
+      <returntype>b4j.example.elprocess</returntype>
+      <parameter>
+        <name>varName</name>
+        <type>String</type>
+      </parameter>
+    </method>
+    <method>
+      <name DesignerName="IfPlatformNotDarwin">_ifplatformnotdarwin</name>
+      <comment>if process not darwin
+</comment>
+      <returntype>b4j.example.elprocess</returntype>
+    </method>
+    <method>
       <name DesignerName="Initialize">_initialize</name>
       <comment>Initializes the object. You can add parameters to this method if needed.
 </comment>
@@ -580,10 +1406,182 @@
       </parameter>
     </method>
     <method>
+      <name DesignerName="loadHTML">_loadhtml</name>
+      <comment>load html
+</comment>
+      <returntype>b4j.example.elprocess</returntype>
+      <parameter>
+        <name>winName</name>
+        <type>String</type>
+      </parameter>
+      <parameter>
+        <name>fileName</name>
+        <type>String</type>
+      </parameter>
+    </method>
+    <method>
+      <name DesignerName="maximise">_maximise</name>
+      <comment>maximise
+</comment>
+      <returntype>b4j.example.elprocess</returntype>
+      <parameter>
+        <name>winName</name>
+        <type>String</type>
+      </parameter>
+    </method>
+    <method>
+      <name DesignerName="MenuBuildFromTemplate">_menubuildfromtemplate</name>
+      <comment>menu build from template
+</comment>
+      <returntype>b4j.example.elprocess</returntype>
+      <parameter>
+        <name>menuName</name>
+        <type>String</type>
+      </parameter>
+      <parameter>
+        <name>mainMenu</name>
+        <type>String</type>
+      </parameter>
+      <parameter>
+        <name>templateName</name>
+        <type>String</type>
+      </parameter>
+    </method>
+    <method>
+      <name DesignerName="MenuSetApplicationMenu">_menusetapplicationmenu</name>
+      <comment>menu setApplicationMenu
+</comment>
+      <returntype>b4j.example.elprocess</returntype>
+      <parameter>
+        <name>menuName</name>
+        <type>String</type>
+      </parameter>
+      <parameter>
+        <name>mainMenu</name>
+        <type>String</type>
+      </parameter>
+    </method>
+    <method>
+      <name DesignerName="newBrowserWindow">_newbrowserwindow</name>
+      <comment>newBrowserWindow
+</comment>
+      <returntype>b4j.example.elprocess</returntype>
+      <parameter>
+        <name>winName</name>
+        <type>String</type>
+      </parameter>
+      <parameter>
+        <name>options</name>
+        <type>anywheresoftware.b4a.objects.collections.Map</type>
+      </parameter>
+    </method>
+    <method>
       <name DesignerName="newline">_newline</name>
       <comment>add new line
 </comment>
       <returntype>b4j.example.elprocess</returntype>
+    </method>
+    <method>
+      <name DesignerName="newList">_newlist</name>
+      <comment>new list
+</comment>
+      <returntype>anywheresoftware.b4a.objects.collections.List</returntype>
+    </method>
+    <method>
+      <name DesignerName="newMenu">_newmenu</name>
+      <comment>create a menu
+</comment>
+      <returntype>b4j.example.elmenu</returntype>
+      <parameter>
+        <name>key</name>
+        <type>String</type>
+      </parameter>
+      <parameter>
+        <name>label</name>
+        <type>String</type>
+      </parameter>
+    </method>
+    <method>
+      <name DesignerName="newMenuSeparator">_newmenuseparator</name>
+      <comment>create a separator
+</comment>
+      <returntype>b4j.example.elmenu</returntype>
+    </method>
+    <method>
+      <name DesignerName="nullify">_nullify</name>
+      <comment>mullify
+</comment>
+      <returntype>b4j.example.elprocess</returntype>
+      <parameter>
+        <name>winName</name>
+        <type>String</type>
+      </parameter>
+    </method>
+    <method>
+      <name DesignerName="onceReadyToShow">_oncereadytoshow</name>
+      <comment>once ready to show
+</comment>
+      <returntype>b4j.example.elprocess</returntype>
+      <parameter>
+        <name>winName</name>
+        <type>String</type>
+      </parameter>
+    </method>
+    <method>
+      <name DesignerName="onClosed">_onclosed</name>
+      <comment>on closed
+</comment>
+      <returntype>b4j.example.elprocess</returntype>
+      <parameter>
+        <name>winName</name>
+        <type>String</type>
+      </parameter>
+    </method>
+    <method>
+      <name DesignerName="openDevTools">_opendevtools</name>
+      <comment>openDevTools
+</comment>
+      <returntype>b4j.example.elprocess</returntype>
+      <parameter>
+        <name>winName</name>
+        <type>String</type>
+      </parameter>
+    </method>
+    <method>
+      <name DesignerName="OpenFunction">_openfunction</name>
+      <comment>open function
+</comment>
+      <returntype>b4j.example.elprocess</returntype>
+      <parameter>
+        <name>funcName</name>
+        <type>String</type>
+      </parameter>
+    </method>
+    <method>
+      <name DesignerName="popup">_popup</name>
+      <comment>popup
+</comment>
+      <returntype>b4j.example.elprocess</returntype>
+      <parameter>
+        <name>menuName</name>
+        <type>String</type>
+      </parameter>
+    </method>
+    <method>
+      <name DesignerName="preventDefault">_preventdefault</name>
+      <comment>prevent default
+</comment>
+      <returntype>b4j.example.elprocess</returntype>
+    </method>
+    <method>
+      <name DesignerName="removeMenu">_removemenu</name>
+      <comment>remove menu
+</comment>
+      <returntype>b4j.example.elprocess</returntype>
+      <parameter>
+        <name>winName</name>
+        <type>String</type>
+      </parameter>
     </method>
     <method>
       <name DesignerName="require">_require</name>
@@ -596,6 +1594,16 @@
       </parameter>
       <parameter>
         <name>module</name>
+        <type>String</type>
+      </parameter>
+    </method>
+    <method>
+      <name DesignerName="RunFunction">_runfunction</name>
+      <comment>RunMethod
+</comment>
+      <returntype>b4j.example.elprocess</returntype>
+      <parameter>
+        <name>funcName</name>
         <type>String</type>
       </parameter>
     </method>
@@ -619,7 +1627,23 @@
         <type>String</type>
       </parameter>
     </method>
+    <method>
+      <name DesignerName="show">_show</name>
+      <comment>show
+</comment>
+      <returntype>b4j.example.elprocess</returntype>
+      <parameter>
+        <name>winName</name>
+        <type>String</type>
+      </parameter>
+    </method>
+    <method>
+      <name DesignerName="ToString">_tostring</name>
+      <comment>tostring
+</comment>
+      <returntype>String</returntype>
+    </method>
   </class>
-  <version>1.1</version>
+  <version>1.12</version>
   <author>Anele Mbanga (Mashy)</author>
 </root>
