@@ -23,6 +23,7 @@ Sub Class_Globals
 	Private props As List
 End Sub
 
+
 'Initializes the BANanoElectron
 Public Sub Initialize(WorkingDir As String, AppName As String, PacketName As String, Title As String)
 	mWorkingDir = WorkingDir
@@ -197,6 +198,7 @@ Sub Save
 	'
 	MainProcess.Save("main.js")
 	RendererProcess.save("renderer.js")
+	CreateIndexFile
 End Sub
 
 
@@ -232,6 +234,41 @@ Public Sub AppBuild As ResumableSub
 	LogError(res.StdErr)
 	Return (res.Success And res.ExitCode = 0)
 End Sub
+
+'build mac app
+Public Sub AppBuildWin As ResumableSub
+	shl.Initialize("shl", "cmd", Array As String("/c", "npm", "run", "build-win"))
+	shl.WorkingDirectory =  File.Combine(mWorkingDir, mAppName)
+	shl.Encoding = "UTF-8"
+	Dim res As ShellSyncResult = shl.RunSynchronous(-1)
+	Log(res.StdOut)
+	LogError(res.StdErr)
+	Return (res.Success And res.ExitCode = 0)
+End Sub
+
+'build linux app
+Public Sub AppBuildLinux As ResumableSub
+	shl.Initialize("shl", "cmd", Array As String("/c", "npm", "run", "build-linux"))
+	shl.WorkingDirectory =  File.Combine(mWorkingDir, mAppName)
+	shl.Encoding = "UTF-8"
+	Dim res As ShellSyncResult = shl.RunSynchronous(-1)
+	Log(res.StdOut)
+	LogError(res.StdErr)
+	Return (res.Success And res.ExitCode = 0)
+End Sub
+
+'build win app
+Public Sub AppBuildMac As ResumableSub
+	shl.Initialize("shl", "cmd", Array As String("/c", "npm", "run", "build-mac"))
+	shl.WorkingDirectory =  File.Combine(mWorkingDir, mAppName)
+	shl.Encoding = "UTF-8"
+	Dim res As ShellSyncResult = shl.RunSynchronous(-1)
+	Log(res.StdOut)
+	LogError(res.StdErr)
+	Return (res.Success And res.ExitCode = 0)
+End Sub
+
+
 
 'Add Dependency
 Public Sub InstallDependency(args As String) As ResumableSub
@@ -337,4 +374,26 @@ Public Sub Run(args As String) As ResumableSub
 	Log(res.StdOut)
 	LogError(res.StdErr)
 	Return (res.Success And res.ExitCode = 0)
+End Sub
+
+
+Private Sub ExtractSubstrBetween(text As String, startText As String, endText As String) As String
+	Return text.SubString2(text.IndexOf(startText)+startText.Length, text.IndexOf(endText))
+End Sub
+
+'Creating index.html File
+private Sub CreateIndexFile()
+	Dim index As String = File.ReadString(File.Combine(mWorkingDir, mAppName), "index.html")
+	Dim headerScript As String = ExtractSubstrBetween(index, $"<script type="application/javascript">"$, $"</script></head>"$)
+	Dim bodyScript As String = ExtractSubstrBetween(index, $"<body id="body"><script type="application/javascript">"$, $"</script></body></html>"$)
+	Dim hdr As String = ExtractSubstrBetween(index, $"<!DOCTYPE html>"$, $"<script type="application/javascript">"$)
+	Dim html As String  = $"<!DOCTYPE html>${hdr}
+	<script type="application/javascript">${headerScript}</script>
+    </head>
+    <body id="body">        
+		<script type="application/javascript">${bodyScript}</script>
+        <script type="module" src="renderer.js"></script>
+    </body>
+</html>"$
+	File.WriteString(File.Combine(mWorkingDir, mAppName), "index.html", html)
 End Sub

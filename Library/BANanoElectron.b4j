@@ -7,11 +7,12 @@ Library3=banano
 Library4=json
 Module1=BANanoElectron
 Module2=ELBrowserWindow
-Module3=ELMenu
-Module4=ELProcess
+Module3=ELElement
+Module4=ELMenu
+Module5=ELProcess
 NumberOfFiles=0
 NumberOfLibraries=4
-NumberOfModules=4
+NumberOfModules=5
 Version=8.5
 @EndOfDesignText@
 'Non-UI application (console / server application)
@@ -20,7 +21,7 @@ Version=8.5
 	#MergeLibraries: True 
 	#LibraryName: BANanoElectron
 	#LibraryAuthor: Anele Mbanga (Mashy)
-	#LibraryVersion: 1.10
+	#LibraryVersion: 1.12
 #End Region
 
 Sub Process_Globals

@@ -8,6 +8,7 @@ Version=8.5
 Sub Class_Globals
 	Private submenu As List
 	Public menu As Map
+	Private items As List
 End Sub
 
 'Initializes the menu
@@ -16,15 +17,54 @@ Public Sub Initialize(key As String, label As String) As ELMenu
 	menu.Put("key", key)
 	menu.Put("label", label)
 	submenu.Initialize 
+	items.Initialize 
 	Return Me
 End Sub
 
-'add submenu
+'add a menu
+Sub AddMenu(item As ELMenu) As ELMenu
+	items.Add(item.menu)
+	Return Me
+End Sub
+
+'convert list to json
+private Sub List2Json(l As List) As String
+	Dim JSONGenerator As JSONGenerator
+	JSONGenerator.Initialize2(l)
+	Return JSONGenerator.ToString
+End Sub
+
+'convert to template
+Sub ToTemplate As String
+	Dim templateJSON As String = List2Json(items)
+	Return templateJSON
+End Sub
+
+'pop
+Sub Pop(parent As ELMenu)
+	parent.AddSubMenu(Me)
+End Sub
+
+'addtiparent
+Sub AddToParent(parent As ELMenu)
+	parent.AddSubMenu(Me)
+End Sub
+
+'add submenu item
+Sub AddSubMenu(smenu As ELMenu) As ELMenu
+	submenu.Add(smenu.menu)
+	menu.Put("submenu", submenu)
+	Return Me
+End Sub
+
+
+'add submenu item
 Sub AddItem(smenu As ELMenu) As ELMenu
 	submenu.Add(smenu.menu)
 	menu.Put("submenu", submenu)
 	Return Me
 End Sub
+
 
 'make the menu a separator
 Sub Separator As ELMenu
