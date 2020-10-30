@@ -10,8 +10,9 @@ File15=register.jpg
 File16=sponge.png
 File17=upload.php
 File18=vegan.jpg
-File19=vuejs.png
+File19=vsignin.bjl
 File2=android-chrome-512x512.png
+File20=vuejs.png
 File3=apple-touch-icon.png
 File4=avatar.png
 File5=config.php
@@ -31,6 +32,7 @@ FileGroup17=Default Group
 FileGroup18=Default Group
 FileGroup19=Default Group
 FileGroup2=Default Group
+FileGroup20=Default Group
 FileGroup3=Default Group
 FileGroup4=Default Group
 FileGroup5=Default Group
@@ -44,17 +46,20 @@ Library2=jfx
 Library3=banano
 Library4=bananovuetifycore
 Library5=bananoelectron
+Library6=bananofirestore
 Module1=CompHomeDetails
+Module10=ViewSignIn
 Module2=CompHomeHero
 Module3=CompHomePlans
-Module4=pgIndex
-Module5=ViewHome
-Module6=ViewJoin
-Module7=ViewMenu
-Module8=ViewSignIn
-NumberOfFiles=19
-NumberOfLibraries=5
-NumberOfModules=8
+Module4=CompMealRecipes
+Module5=pgIndex
+Module6=ViewAbout
+Module7=ViewHome
+Module8=ViewJoin
+Module9=ViewMenu
+NumberOfFiles=20
+NumberOfLibraries=6
+NumberOfModules=10
 Version=8.5
 @EndOfDesignText@
 #Region Project Attributes 
@@ -91,6 +96,7 @@ Sub AppStart (Form1 As Form, Args() As String)
 	BANano.TranspilerOptions.MinifyOnline = False
 	BANano.TranspilerOptions.IgnoreB4JLibrary("bananoelectron")
 	BANano.TranspilerOptions.IgnoreB4JLibrary("json")
+	BANano.transpileroptions.RemoveDeadCode = True
 	'add node security
 	'BANano.Header.AddMeta($"<meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />"$)
 	
@@ -173,7 +179,7 @@ Sub AppStart (Form1 As Form, Args() As String)
 	MP.removeMenu("mainWindow")
 	MP.maximise("mainWindow")
 	MP.loadHTML("mainWindow", "index.html")
-	MP.openDevTools("mainWindow")
+	'MP.openDevTools("mainWindow")
 	'
 	MP.onceReadyToShow("mainWindow")
 	MP.show("mainWindow")
@@ -185,30 +191,30 @@ Sub AppStart (Form1 As Form, Args() As String)
 	
 	MP.CloseFunction  'for OpenFunction
 	'
-	MP.comment("create a menu")
-	Dim editapp As ELMenu = MP.newMenu("editapp", "Edit App")
-	MP.newMenu("undo", "Undo").SetAccelerator("CmdOrCtrl+Z").SetRole("undo").Pop(editapp)
-	MP.newMenu("redo", "Redo").SetAccelerator("Shift+CmdOrCtrl+Z").SetRole("redo").Pop(editapp)
-	MP.newMenuSeparator.Pop(editapp)
-	MP.newMenu("cut", "Cut").SetAccelerator("CmdOrCtrl+X").SetRole("cut").Pop(editapp)
-	MP.newMenu("copy", "Copy").SetAccelerator("CmdOrCtrl+C").SetRole("copy").Pop(editapp)
-	MP.newMenu("paste", "Paste").SetAccelerator("CmdOrCtrl+V").SetRole("paste").Pop(editapp)
-	MP.newMenu("selectall", "Select All").SetAccelerator("CmdOrCtrl+A").SetRole("selectall").Pop(editapp)
-	MP.newMenuSeparator.Pop(editapp)
-	MP.newMenu("quit", "Quit").SetRole("quit").Pop(editapp)
-	
-	Dim menu1 As ELMenu = MP.newMenu("menu1", "Menu 1")
-	MP.newMenu("menu1item1", "Menu 1 Item 1").Pop(menu1)
-	MP.newMenu("menu1item2", "Menu 1 Item 2").SetChecked(True).SetCheckBox.Pop(menu1)
-	MP.newMenu("menu1item3", "Menu 1 Item 3").SetChecked(False).SetRadio.Pop(menu1)
-	
-	Dim menu2 As ELMenu = MP.newMenu("menu2", "Menu 2")
-	MP.newMenu("menu2item1", "Menu 2 Item 1").Pop(menu2)
-	MP.newMenu("menu2item2", "Menu 2 Item 2").Pop(menu2)
+'	MP.comment("create a menu")
+'	Dim editapp As ELMenu = MP.newMenu("editapp", "Edit App")
+'	MP.newMenu("undo", "Undo").SetAccelerator("CmdOrCtrl+Z").SetRole("undo").Pop(editapp)
+'	MP.newMenu("redo", "Redo").SetAccelerator("Shift+CmdOrCtrl+Z").SetRole("redo").Pop(editapp)
+'	MP.newMenuSeparator.Pop(editapp)
+'	MP.newMenu("cut", "Cut").SetAccelerator("CmdOrCtrl+X").SetRole("cut").Pop(editapp)
+'	MP.newMenu("copy", "Copy").SetAccelerator("CmdOrCtrl+C").SetRole("copy").Pop(editapp)
+'	MP.newMenu("paste", "Paste").SetAccelerator("CmdOrCtrl+V").SetRole("paste").Pop(editapp)
+'	MP.newMenu("selectall", "Select All").SetAccelerator("CmdOrCtrl+A").SetRole("selectall").Pop(editapp)
+'	MP.newMenuSeparator.Pop(editapp)
+'	MP.newMenu("quit", "Quit").SetRole("quit").Pop(editapp)
+'	
+'	Dim menu1 As ELMenu = MP.newMenu("menu1", "Menu 1")
+'	MP.newMenu("menu1item1", "Menu 1 Item 1").Pop(menu1)
+'	MP.newMenu("menu1item2", "Menu 1 Item 2").SetChecked(True).SetCheckBox.Pop(menu1)
+'	MP.newMenu("menu1item3", "Menu 1 Item 3").SetChecked(False).SetRadio.Pop(menu1)
+'	
+'	Dim menu2 As ELMenu = MP.newMenu("menu2", "Menu 2")
+'	MP.newMenu("menu2item1", "Menu 2 Item 1").Pop(menu2)
+'	MP.newMenu("menu2item2", "Menu 2 Item 2").Pop(menu2)
 	'
-	Dim template As ELMenu = MP.newMenu("","").AddMenu(editapp).AddMenu(menu1).AddMenu(menu2)
+	'Dim template As ELMenu = MP.newMenu("","").AddMenu(editapp).AddMenu(menu1).AddMenu(menu2)
 	'convert to json
-	Dim templateJSON As String = template.ToTemplate
+	'Dim templateJSON As String = template.ToTemplate
 	'MP.let("template", templateJSON)
 	MP.newline
 	'

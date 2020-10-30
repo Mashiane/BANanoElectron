@@ -1,5 +1,5 @@
 ﻿B4J=true
-Group=Default Group\Components
+Group=Default Group
 ModulesStructureVersion=1
 Type=StaticCode
 Version=8.5
@@ -44,6 +44,7 @@ Sub Initialize
 	
 	'add a spacer
 	Dim vspacer As VMElement = vm.VDivider("")
+	vspacer.SetStatic(True)
 	vspacer.SetStyleSingle("height", "100px")
 	vspacer.SetStyleSingle("max-height", "100px")
 	cont.AddComponent(3, 1, vspacer.tostring)
@@ -61,41 +62,48 @@ Sub Initialize
 	homeplans.setdata("r3c1show", True)
 	
 	'set the template
-	homeplans.SetTemplate(cont.tostring)
+	Dim scont As String = cont.tostring
+	homeplans.SetTemplate(scont)
 	'register method
 	homeplans.SetMethod(Me, "showRecipes")
+	homeplans.SetComputed("isauthenticated", Me, "getIsAuthenticated")
 End Sub
 
 'define the callback
-Sub showRecipes(plan As String)
+Sub showRecipes(plan As String) 'IgnoreDeadCode
 	vm.RunMethod("getrecipes", plan)
 End Sub
 
+
+Sub getIsAuthenticated As Boolean   'IgnoreDeadCode
+	Dim bisAuthenticated As Boolean = vm.GetDataGlobal("isAuthenticated")
+	Return bisAuthenticated
+End Sub
+
+
 Sub MealPlanTemplate(key As String, img As String, title As String, desc As String) As String
 	Dim q As String = key.tolowercase
-	Dim card As String = $"<v-card>
-                    <v-responsive>
-                        <v-img src="${img}" height="500px">
-                            <v-container fill-height fluid>
-                                <v-layout fill-height>
-                                    <v-flex xs12 align-end flexbox>
-                                        <span class="headline white--text">${title}</span>
-                                    </v-flex>
-                                </v-layout>
-                            </v-container>
-                        </v-img>
-                    </v-responsive>
-
-                    <v-card-text>
-                        <div>
-                            <h3 class="headline mb-0">${key}</h3>
-                            <div>${desc}</div>
-                        </div>
-                    </v-card-text>
-
-                    <v-card-actions>
-                        <v-btn outlined block color="green" @click="showrecipes('${q}')">Select This Plan</v-btn>
-                    </v-card-actions>
-                </v-card>"$
+Dim card As String = $"<v-card>
+<v-responsive>
+<v-img src="${img}" height="500px">
+<v-container fill-height fluid>
+<v-layout fill-height>
+<v-flex xs12 align-end flexbox>
+<span class="headline white--text">${title}</span>
+</v-flex>
+</v-layout>
+</v-container>
+</v-img>
+</v-responsive>
+<v-card-text>
+<div>
+<h3 class="headline mb-0">${key}</h3>
+<div>${desc}</div>
+</div>
+</v-card-text>
+<v-card-actions>
+<v-btn outlined block v-show="isauthenticated" color="green" @click="showrecipes('${q}')">Select This Plan</v-btn>
+</v-card-actions>
+</v-card>"$
 	Return card
 End Sub

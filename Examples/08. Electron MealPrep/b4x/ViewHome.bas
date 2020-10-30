@@ -1,5 +1,5 @@
 ﻿B4J=true
-Group=Default Group\Views
+Group=Default Group
 ModulesStructureVersion=1
 Type=StaticCode
 Version=8.5
@@ -28,14 +28,15 @@ Sub Initialize
 		
 	'define the structure of the page
 	Dim span As VMElement = vm.Span("")
+	span.SetStatic(True)
 	'add each of the custom elements
 	span.AddCustomElement(CompHomeHero.name, "", Null, "")
 	span.AddCustomElement(CompHomeDetails.name, "", Null, "")
 	span.AddCustomElement(CompHomePlans.name, "", Null, "")
 	
+	Dim scont As String = span.tostring
 	'set the template for the page
 	home.SetTemplate(span.tostring)
-	 
 	'add the component as a router/page for the app
 	vm.AddRoute(home)
 End Sub

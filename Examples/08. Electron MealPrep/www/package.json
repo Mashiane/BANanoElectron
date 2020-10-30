@@ -1,0 +1,23 @@
+{
+  "name": "electronmealprep",
+  "productName": "BANanoElectron Meal Prep",
+  "main": "main.js",
+  "version": "1.0.0",
+  "description": "Beginning Electron with BANano - Book Demo",
+  "author": "Anele Mbanga (Mashy)",
+  "license": "MIT",
+  "repository": "https://github.com/Mashiane/BANanoElectron",
+  "scripts": {
+    "start": "electron main.js",
+    "build": "npm run build-mac && npm run build-win && npm run build-linux",
+    "build-win": "electron-packager . --platform=win32 --out=build --icons=icons/Icon.ico --overwrite --asar"
+  },
+  "keywords": [
+    "Electron",
+    "BANano"
+  ],
+  "devDependencies": {
+    "electron": "^10.1.5",
+    "electron-packager": "^15.1.0"
+  }
+}

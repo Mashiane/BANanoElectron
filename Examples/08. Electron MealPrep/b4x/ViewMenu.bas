@@ -1,5 +1,5 @@
 ﻿B4J=true
-Group=Default Group\Views
+Group=Default Group
 ModulesStructureVersion=1
 Type=StaticCode
 Version=8.5
@@ -17,16 +17,19 @@ Sub Initialize
 	'get the view instance
 	vue = vm.vue
 	'initialize the component
-	menu.Initialize(vue, "menu", "/menu", Me)
+	menu.Initialize(vue, "plans", "/plans", Me)
 	'import the components
 	CompHomePlans.initialize
 	menu.Import(CompHomePlans.name, CompHomePlans.homeplans)
-		
+	CompMealRecipes.initialize
+	menu.Import(CompMealRecipes.name, CompMealRecipes.mealrecipes)
+			
 	'define the structure of the page
 	Dim div As VMElement = vm.Div("")
+	div.SetStatic(True)
 	'add each of the custom elements
 	div.AddCustomElement(CompHomePlans.name, "", Null, "")
-	
+	div.AddCustomElement(CompMealRecipes.name, "", Null, "")
 	'set the template for the page
 	menu.SetTemplate(div.tostring)
 	 
